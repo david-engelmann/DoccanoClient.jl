@@ -65,4 +65,4 @@ function get_project_relation_distribution(base_url :: String, project_id :: Int
     return project_relation_distribution
 end
 
-#println(get_project_category_distribution("http://doccano.satisfi5.com", 90, csrf_token))
+#println(get_project_category_distribution("http://127.0.0.1", 90, csrf_token))

@@ -46,7 +46,7 @@ end
 
 
 
-#users = get_users("http://doccano.satisfi5.com", "users", csrf_token)
-#my_user = get_current_user("http://doccano.satisfi5.com", "me", csrf_token)
+#users = get_users("http://127.0.0.1", "users", csrf_token)
+#my_user = get_current_user("http://127.0.0.1", "me", csrf_token)
 
 #println(my_user)

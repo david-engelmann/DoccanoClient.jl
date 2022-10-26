@@ -286,4 +286,4 @@ end
 sample_classification_file_name = "sample_classification_inputs.jsonl"
 sample_classification_file_path = "src"
 
-#println(upload_examples("http://doccano.satisfi5.com", 106, csrf_token, sample_classification_file_name, sample_classification_file_path))
+#println(upload_examples("http://127.0.0.1", 106, csrf_token, sample_classification_file_name, sample_classification_file_path))

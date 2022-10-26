@@ -251,8 +251,8 @@ function export_project(base_url :: String, project_id :: Integer, save_path:: S
 end
 
 #=
-#println(delete_project("http://doccano.satisfi5.com", 108, csrf_token))
-#println(update_project("http://doccano.satisfi5.com", 107, "david-changed-name-from-julia", csrf_token, "this is the new description set from julia2", "DocumentClassification", "Guidelines", "TextClassificationProject", true, true))
-#println(create_project("http://doccano.satisfi5.com", "david-create-project-julia-name-tbd", csrf_token, "test changing names from julia"))
-#println(get_all_projects("http://doccano.satisfi5.com", "projects", csrf_token)[1])
+#println(delete_project("http://127.0.0.1", 108, csrf_token))
+#println(update_project("http://127.0.0.1", 107, "david-changed-name-from-julia", csrf_token, "this is the new description set from julia2", "DocumentClassification", "Guidelines", "TextClassificationProject", true, true))
+#println(create_project("http://127.0.0.1", "david-create-project-julia-name-tbd", csrf_token, "test changing names from julia"))
+#println(get_all_projects("http://127.0.0.1", "projects", csrf_token)[1])
 =#

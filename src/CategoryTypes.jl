@@ -180,5 +180,5 @@ end
 
 upload_classification_type_name = "label_multi_label_alpha.json"
 upload_classification_type_path = "src"
-println(upload_category_types("http://doccano.satisfi5.com", 106, csrf_token, upload_classification_type_name, upload_classification_type_path))
-#println(update_category_type_elements("http://doccano.satisfi5.com", 106, 2836, csrf_token, text="julia5", text_color="#ffffff", background_color="#4D64AE"))
+println(upload_category_types("http://127.0.0.1", 106, csrf_token, upload_classification_type_name, upload_classification_type_path))
+#println(update_category_type_elements("http://127.0.0.1", 106, 2836, csrf_token, text="julia5", text_color="#ffffff", background_color="#4D64AE"))

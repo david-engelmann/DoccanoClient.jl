@@ -78,10 +78,10 @@ function login(base_url :: String, username :: String, password :: String, csrf 
     return csrf_token
 end
 
-#csrftoken = login("http://doccano.satisfi5.com", "auth/login/", "admin", "password")
-csrf_token = get_csrf_token("http://doccano.satisfi5.com")
+#csrftoken = login("http://127.0.0.1", "auth/login/", "admin", "password")
+csrf_token = get_csrf_token("http://127.0.0.1")
 println(csrf_token)
-csrf_token = login("http://doccano.satisfi5.com", "admin", "password", csrf_token)
+csrf_token = login("http://127.0.0.1", "admin", "password", csrf_token)
 
 export csrf_token
 

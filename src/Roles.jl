@@ -114,4 +114,4 @@ function attach_users_to_project(base_url :: String, project_id :: Integer, user
     return user_response
 end
 
-roles = get_roles("http://doccano.satisfi5.com", "roles", csrf_token)
+roles = get_roles("http://127.0.0.1", "roles", csrf_token)
