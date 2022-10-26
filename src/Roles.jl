@@ -114,4 +114,5 @@ function attach_users_to_project(base_url :: String, project_id :: Integer, user
     return user_response
 end
 
-roles = get_roles("http://127.0.0.1", "roles", csrf_token)
+#base_url = ENV["DOCCANO_BASE_URL"]
+#roles = get_roles(base_url, "roles", csrf_token)
