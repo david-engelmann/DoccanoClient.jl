@@ -283,7 +283,8 @@ function delete_examples(base_url :: String, project_ids :: Union{Vector{Integer
     end
 end
 
-sample_classification_file_name = "sample_classification_inputs.jsonl"
-sample_classification_file_path = "src"
-
-#println(upload_examples("http://127.0.0.1", 106, csrf_token, sample_classification_file_name, sample_classification_file_path))
+#sample_classification_file_name = "sample_classification_inputs.jsonl"
+#sample_classification_file_path = "src"
+#base_url = ENV["DOCCANO_BASE_URL"]
+#test_project_id = ENV["DOCCANO_TEST_PROJECT_ID"]
+#println(upload_examples(base_url, test_project_id, csrf_token, sample_classification_file_name, sample_classification_file_path))
