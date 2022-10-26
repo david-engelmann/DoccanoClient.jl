@@ -37,3 +37,5 @@ jobs:
         run: sh ./scripts/doccano_install.sh
       - name: Run Doccano Ping Test
         run: sh ./scripts/doccano_ping.sh
+      - name: Run Doccano Login Test
+        run: sh ./scripts/doccano_login.sh
