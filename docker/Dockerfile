@@ -22,6 +22,14 @@ LABEL maintainer="david-engelmann"
 # Add a Department Label
 LABEL department="product"
 
+ARG TIMEZONE=America/New_York
+ENV TIMEZONE $TIMEZONE
+RUN set -xe; \
+    apt update && apt upgrade -y; \
+    ln -fs /usr/share/zoneinfo/${TIMEZONE} /etc/localtime; \
+    apt install -y tzdata; \
+    dpkg-reconfigure --frontend noninteractive tzdata;
+
 # OS Packages
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     apt-utils gcc g++ openssh-server cmake build-essential gdb \
