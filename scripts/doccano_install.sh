@@ -1,7 +1,7 @@
 #!/bin/bash
 apt update
 apt upgrade -y
-apt install git
+apt install git -y
 
 git clone https://github.com/doccano/doccano.git --config core.autocrlf=input
 cd doccano
