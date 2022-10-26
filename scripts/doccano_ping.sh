@@ -8,4 +8,11 @@ then
 else
   echo "Doccano Installation Failed"
 fi
+
+if ping -c 1 http://127.0.0.1/admin/login &> /dev/null
+then
+  echo "Doccano Admin Accessable"
+else
+  echo "Doccano Admin Access Failed"
+fi
 exec "$@"
