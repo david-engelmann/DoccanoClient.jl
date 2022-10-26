@@ -1,0 +1,48 @@
+version: "3.8"  # Docker Compose File Version - https://docs.docker.com/compose/compose-file/compose-file-v2/
+
+services:
+  doccano_api:
+    # Set the Name of The Container
+    container_name: "${PROJECT_NAME:-doccano_api}"
+    
+    # Set the Name of The Image and the Version
+    image: "${PROJECT_NAME:-doccano_api}_${ENV_TYPE:-dev}:${PROJECT_VERSION:-1}"
+
+    # Add Labels to the Image
+    labels:
+      maintainer: "david-engelmann"
+      department: "product"
+
+    # Add a User
+    user: root
+
+    env_file:
+      - ../docker/docker.env
+
+    working_dir: /workspaces/doccano_api
+
+    volumes:
+      - type: "bind"
+        source: ".."
+        target: "/workspaces/doccano_api"
+      
+    # Uncomment to Debug
+    command: ["sh", "-c", "pwd && ls -a && julia src/CategoryTypes.jl"]
+
+    #ports:
+      #- "8000:80"
+
+    build:
+      context: ".."
+      dockerfile: "./docker/Dockerfile"
+
+      # Pass Build Argument can lean on .env if that approach is used
+      args:
+        PROJECT_NAME: "${PROJECT_NAME:-doccano_api}"
+        PROJECT_VERSION: "${PROJECT_VERSION:-1}"
+        ENV_TYPE: "${ENV_TYPE:-dev}"
+        JULIA_VERSION: "${JULIA_VERSION:-1.7.2}"
+        JULIA_THREADS: "${JULIA_THREADS:-1}"
+        LOG_FILE: "${LOG_FILE:-doccano_api.log}"
+
+
