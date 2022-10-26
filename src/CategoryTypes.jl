@@ -178,7 +178,9 @@ function delete_category_types(base_url :: String, project_ids :: Union{Vector{I
 end
 
 
-upload_classification_type_name = "label_multi_label_alpha.json"
-upload_classification_type_path = "src"
-println(upload_category_types("http://127.0.0.1", 106, csrf_token, upload_classification_type_name, upload_classification_type_path))
-#println(update_category_type_elements("http://127.0.0.1", 106, 2836, csrf_token, text="julia5", text_color="#ffffff", background_color="#4D64AE"))
+#upload_classification_type_name = "label_multi_label_alpha.json"
+#upload_classification_type_path = "src"
+#base_url = ENV["DOCCANO_BASE_URL"]
+#test_project_id = ENV["DOCCANO_TEST_PROJECT_ID"]
+#println(upload_category_types(base_url, test_project_id, csrf_token, upload_classification_type_name, upload_classification_type_path))
+#println(update_category_type_elements(base_url, test_project_id, 2836, csrf_token, text="julia5", text_color="#ffffff", background_color="#4D64AE"))

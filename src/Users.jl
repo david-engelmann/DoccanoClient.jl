@@ -45,8 +45,8 @@ function get_current_user(base_url :: String, _csrf_token :: String, version :: 
 end
 
 
-
-#users = get_users("http://127.0.0.1", "users", csrf_token)
-#my_user = get_current_user("http://127.0.0.1", "me", csrf_token)
+#base_url = ENV["DOCCANO_BASE_URL"]
+#users = get_users(base_url, "users", csrf_token)
+#my_user = get_current_user(base_url, "me", csrf_token)
 
 #println(my_user)
