@@ -8,3 +8,4 @@ then
 else
   echo "Doccano Installation Failed"
 fi
+exec "$@"
