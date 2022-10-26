@@ -18,10 +18,14 @@ end
 
 
 @testset "Roles - Link Creation" begin
-    base_url = "http://127.0.0.1"
+    try
+        base_url = ENV["DOCCANO_BASE_URL"]
+        test_project_id = ENV["DOCCANO_TEST_PROJECT_ID"]
+    catch err
+        base_url = "http://127.0.0.1"
+        test_project_id = 106
+    end
     version = "v1"
-    test_project_id = 106
-    # base_url, version, suffix
     no_suffix_role_url = create_roles_url(base_url, version)
     no_suffix_project_role_url = create_project_roles_url(base_url, project_id, version)
 
