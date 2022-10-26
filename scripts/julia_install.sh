@@ -19,6 +19,8 @@ mkdir /opt/julia-${JULIA_VERSION} && \
     tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia-${JULIA_VERSION} --strip-components=1 && \
     rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
 
+ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
+
 julia -e 'using Pkg; Pkg.add("HTTP", preserve=PRESERVE_DIRECT);'
 
 julia -e 'using Pkg; Pkg.add("URIs", preserve=PRESERVE_DIRECT);'
