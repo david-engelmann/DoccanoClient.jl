@@ -3,7 +3,11 @@ using Test
 using JSON3
 
 @testset "Users - Get Functions" begin
-    base_url = "http://127.0.0.1"
+    try
+        base_url = ENV["DOCCANO_BASE_URL"]
+    catch err
+        base_url = "http://127.0.0.1"
+    end
     version = "v1"
     users = get_users(base_url, csrf_token, version)
     admin_block = [usr for usr in users if usr["id"] == 1]
@@ -27,9 +31,12 @@ using JSON3
 end
 
 @testset "Users - Link Creation" begin
-    base_url = "http://127.0.0.1"
+    try
+        base_url = ENV["DOCCANO_BASE_URL"]
+    catch err
+        base_url = "http://127.0.0.1"
+    end
     version = "v1"
-    # base_url, version, suffix
     no_suffix_user_url = create_users_url(base_url, version)
     no_suffix_current_user_url = create_current_user_url(base_url, version)
 
