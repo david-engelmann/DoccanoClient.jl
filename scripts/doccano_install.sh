@@ -30,13 +30,4 @@ echo "POSTGRES_DB=doccano" >> .env
 
 # Create Doccano with docker-compose
 docker-compose -f docker/docker-compose.prod.yml --env-file .env up
-
-# Test the Doccano Instance with ping
-if ping -c 1 http://127.0.0.1/ &> /dev/null
-then
-  echo "Doccano Installed"
-else
-  echo "Doccano Installation Failed"
-fi
-
 exec "$@"
