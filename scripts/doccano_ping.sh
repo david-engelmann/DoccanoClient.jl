@@ -1,15 +1,17 @@
 #!/bin/bash
 # Let Doccano Finish Spinning Up
 sleep 60
+
+cat /etc/hosts
 # Test the Doccano Instance with ping
-if ping -c 1 http://localhost &> /dev/null
+if ping -c 1 http://127.0.0.1 &> /dev/null
 then
   echo "Doccano Installed"
 else
   echo "Doccano Installation Failed"
 fi
 
-if ping -c 1 http://localhost/admin/login/ &> /dev/null
+if ping -c 1 http://127.0.0.1/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
