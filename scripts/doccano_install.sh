@@ -30,4 +30,6 @@ echo "POSTGRES_DB=doccano" >> .env
 
 # Create Doccano with docker-compose
 docker-compose -f docker/docker-compose.prod.yml --env-file .env up &
+sleep 15
+docker ps -a
 exec "$@"
