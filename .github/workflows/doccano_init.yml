@@ -24,9 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     services:
       doccano:
-        image: "doccano_server:1"
-        user: root
-        command: ["sh", "-c", "./scripts/doccano_install"]
+        image: doccano/doccano
+        ports:
+        - 80:80
     container:
       image: ubuntu:22.04
       options: --user root
