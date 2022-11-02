@@ -44,4 +44,5 @@ echo "POSTGRES_DB=doccano" >> .env
 docker-compose -f docker/docker-compose.prod.yml --env-file .env up &
 sleep 150
 docker ps -a
+docker inspect doccano/doccano
 exec "$@"
