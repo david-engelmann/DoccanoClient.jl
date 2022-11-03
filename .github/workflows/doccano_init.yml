@@ -31,7 +31,7 @@ jobs:
             ADMIN_PASSWORD: password
             PORT: 8888
         ports:
-        - 8888:8888
+          - 8888:8888
     container:
       image: ubuntu:22.04
       options: --user root
