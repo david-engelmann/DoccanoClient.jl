@@ -36,6 +36,7 @@ then
 else
   echo "Doccano Admin Access Failed"
 fi
+docker
 exec "$@"
 
-ping 0.0.0.0
+
