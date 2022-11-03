@@ -37,3 +37,5 @@ else
   echo "Doccano Admin Access Failed"
 fi
 exec "$@"
+
+ping 0.0.0.0
