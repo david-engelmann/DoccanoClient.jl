@@ -46,6 +46,24 @@ echo
 sleep 1
 
 echo ""
+echo "------------ test 172.18.0.2 -------------------"
+ping -c 1 http://172.18.0.2 &> /dev/null
+echo
+sleep 1
+
+echo ""
+echo "------------ test 172.18.0.2:8000 -------------------"
+ping -c 1 http://172.18.0.2:8000 &> /dev/null
+echo
+sleep 1
+
+echo ""
+echo "------------ test 172.18.0.2:8888 -------------------"
+ping -c 1 http://172.18.0.2:8888 &> /dev/null
+echo
+sleep 1
+
+echo ""
 echo "----------- test 0.0.0.0:8000 -----------------"
 if ping -c 1 http://0.0.0.0:8000 &> /dev/null
 then
