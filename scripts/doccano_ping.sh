@@ -89,7 +89,7 @@ sleep 1
 
 echo ""
 echo "----------- test localhost:8000 ------------------"
-ping-c 1 localhost:8000 &> /dev/null
+ping -c 1 localhost:8000 &> /dev/null
 echo
 sleep 1
 
@@ -111,7 +111,7 @@ fi
 echo ""
 sleep 1
 
-if ping -c 1 http://localhost/admin/login/ &> /dev/null
+if ping -c 1 localhost/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
