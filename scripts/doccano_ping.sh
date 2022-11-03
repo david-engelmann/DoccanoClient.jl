@@ -36,7 +36,7 @@ then
 else
   echo "Doccano Admin Access Failed"
 fi
-docker ps
+docker port test
 exec "$@"
 
 
