@@ -28,6 +28,8 @@ fi
 echo ""
 sleep 1
 
+echo ""
+echo "--------- test 0.0.0.0/admin/login -----------"
 if ping -c 1 0.0.0.0/admin/login &> /dev/null
 then
   echo "Doccano Admin Accessable"

@@ -29,9 +29,9 @@ jobs:
             ADMIN_USERNAME: admin
             ADMIN_EMAIL: julia_jackson@gmail.com
             ADMIN_PASSWORD: password
-            PORT: 8888
-        ports:
-          - 8888:8888
+#            PORT: 8888
+#        ports:
+#          - 8888:8888
     container:
       image: ubuntu:22.04
       options: --user root
