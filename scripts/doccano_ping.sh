@@ -39,10 +39,14 @@ fi
 docker ps -a
 docker ps --format "{{.ID}}: {{.Ports}}"
 docker ps --format "{{.ID}}: {{.Image}}"
-docker ps | grep "doccano" | awk '{ print $1 }'
+echo
+echo
+PING_DOCKER_IDS=$(docker ps | grep "doccano" | awk '{ print $1 }')
+echo $PING_DOCKER_IDS
 echo
 echo "--------- post grep -----------------"
 echo
-docker ps -q --filter ancestor=doccano
+PING_DOCKER_IDS_FILTER=$(docker ps)
+echo $PING_DOCKER_IDS_FILTER
 exec "$@"
 
