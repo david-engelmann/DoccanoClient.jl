@@ -36,7 +36,9 @@ then
 else
   echo "Doccano Admin Access Failed"
 fi
-docker port doccano/doccano
+docker ps -a
+docker ps --format "{{.ID}}: {{.Ports}}"
+docker ps --format "{{.Ports}}"
 exec "$@"
 
 
