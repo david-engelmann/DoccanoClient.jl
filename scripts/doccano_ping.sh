@@ -41,7 +41,7 @@ docker ps --format "{{.ID}}: {{.Ports}}"
 docker ps --format "{{.ID}}: {{.Image}}"
 echo
 echo
-PING_DOCKER_IDS=$(docker ps | grep "doccano" | awk '{ print $1 }')
+PING_DOCKER_IDS=$(docker ps | grep "doccano\s" | awk '{ print $1 }')
 echo $PING_DOCKER_IDS
 echo
 echo "--------- post grep -----------------"
