@@ -42,11 +42,7 @@ docker ps --format "{{.Ports}}"
 
 docker ps --format "{{.ID}}: {{.Ports}}"
 docker ps --format "{{.ID}}: {{.Image}}"
-PING_DOCKER_ID=docker ps | grep "doccano" | awk '{ print $1 }'
-PING_DOCKER_ID_2=docker ps -q --filter ancestor=doccano
-echo $PING_DOCKER_ID
-echo
-echo
-echo $PING_DOCKER_ID_2
+docker ps | grep "doccano" | awk '{ print $1 }'
+docker ps -q --filter ancestor=doccano
 exec "$@"
 
