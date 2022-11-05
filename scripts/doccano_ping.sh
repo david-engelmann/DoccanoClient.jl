@@ -5,8 +5,8 @@ sleep 60
 cat /etc/hosts
 
 echo ""
-echo "----------- test 172.18.0.1 -------------------"
-ping -c 1 172.18.0.1 &> /dev/null
+echo "----------- test 172.18.0.1:8000 -------------------"
+ping -c 1 172.18.0.1:8000 &> /dev/null
 echo
 sleep 1
 
@@ -17,8 +17,8 @@ echo
 sleep 1
 
 echo ""
-echo "----------- test 172.18.0.1 -----------------"
-if ping -c 1 172.18.0.1 &> /dev/null
+echo "----------- test 172.18.0.1:8000 -----------------"
+if ping -c 1 172.18.0.1:8000 &> /dev/null
 then
   echo "Doccano Installed"
 else
@@ -29,8 +29,8 @@ echo ""
 sleep 1
 
 echo ""
-echo "--------- test 172.18.0.1/admin/login -----------"
-if ping -c 1 172.18.0.1/admin/login &> /dev/null
+echo "--------- test 172.18.0.1:8000/admin/login -----------"
+if ping -c 1 172.18.0.1:8000/admin/login &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
