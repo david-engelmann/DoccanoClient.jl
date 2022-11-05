@@ -5,20 +5,20 @@ sleep 60
 cat /etc/hosts
 
 echo ""
-echo "----------- test 172.18.0.3:8000 -------------------"
-ping -c 1 172.18.0.3:8000 &> /dev/null
+echo "----------- test 172.18.0.3 -------------------"
+ping -c 1 172.18.0.3 &> /dev/null
 echo
 sleep 1
 
 echo ""
 echo "----------- test localhost --------------------"
-ping -c 1 localhost:8000 &> /dev/null
+ping -c 1 localhost &> /dev/null
 echo
 sleep 1
 
 echo ""
-echo "----------- test 172.18.0.333:8000 -----------------"
-if ping -c 1 172.18.0.3:8000 &> /dev/null
+echo "----------- test 172.18.0.3 -----------------"
+if ping -c 1 172.18.0.1. &> /dev/null
 then
   echo "Doccano Installed"
 else
@@ -29,8 +29,17 @@ echo ""
 sleep 1
 
 echo ""
-echo "--------- test 172.18.0.3:8000/admin/login -----------"
-if ping -c 1 172.18.0.3:8000/admin/login &> /dev/null
+echo "--------- test 172.18.0.1/v1/admin/login -----------"
+if ping -c 1 172.18.0.1/v1/auth/login/ &> /dev/null
+then
+  echo "Doccano Admin Accessable"
+else
+  echo "Doccano Admin Access Failed"
+fi
+
+echo ""
+echo "--------- test.372.38.0.3/v1/admin/login -----------"
+if ping -c.3.372.38.0.3/v1/auth/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
