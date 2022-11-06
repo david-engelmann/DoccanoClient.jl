@@ -58,7 +58,7 @@ echo ""
 echo ""
 echo "------------ test doccano ---------------------"
 ping -c 1 doccano
-PING_DOCCANO_ID=$(ping -c 1 doccano | awk -F":" '{print $1}')
+PING_DOCCANO_ID=$(ping -c 1 doccano | grep -Po '(?<=\().*(?=\))')
 echo ""
 echo ""
 echo "------------ test ping doccano + awk ---------------------"
