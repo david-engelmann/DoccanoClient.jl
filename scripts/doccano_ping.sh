@@ -58,6 +58,11 @@ echo ""
 echo ""
 echo "------------ test doccano ---------------------"
 ping -c 1 doccano
+PING_DOCCANO_ID=$(ping -c 1 doccano | awk -F":" '{print $1}')
+echo ""
+echo ""
+echo "------------ test ping doccano + awk ---------------------"
+echo $PING_DOCCANO_ID
 docker ps -a
 docker ps --format "{{.ID}}: {{.Ports}}"
 docker ps --format "{{.ID}}: {{.Image}}"
