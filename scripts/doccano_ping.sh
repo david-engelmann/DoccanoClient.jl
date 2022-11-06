@@ -63,6 +63,18 @@ echo ""
 echo ""
 echo "------------ test ping doccano + awk ---------------------"
 echo $PING_DOCCANO_ID
+ping -c 1 $PING_DOCCANO_ID
+echo ""
+echo ""
+echo "--------------------- test doccano:8000 -----------------"
+ping -c 1 $PING_DOCCANO_ID:$PORT
+echo ""
+echo ""
+
+echo "--------------------- test doccano:8000/tcp -----------------"
+ping -c 1 $PING_DOCCANO_ID:$PORT/tcp
+echo ""
+echo ""
 docker ps -a
 docker ps --format "{{.ID}}: {{.Ports}}"
 docker ps --format "{{.ID}}: {{.Image}}"
