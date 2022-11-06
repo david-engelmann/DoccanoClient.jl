@@ -72,7 +72,7 @@ echo ""
 echo ""
 
 echo "--------------------- test doccano:8000/tcp -----------------"
-ping -c 1 $PING_DOCCANO_ID:$PORT/tcp
+ping -c 1 $PING_DOCCANO_ID:8000/tcp
 echo ""
 echo ""
 docker ps -a
