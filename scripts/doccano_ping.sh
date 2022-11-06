@@ -67,7 +67,7 @@ ping -c 1 $PING_DOCCANO_ID
 echo ""
 echo ""
 echo "--------------------- test doccano:8000 -----------------"
-ping -c 1 $PING_DOCCANO_ID:$PORT
+ping -c 1 $PING_DOCCANO_ID:8000
 echo ""
 echo ""
 
