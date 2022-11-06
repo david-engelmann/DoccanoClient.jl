@@ -54,6 +54,7 @@ then
 else
   echo "Doccano Admin Access Failed"
 fi
+ping -c 1 doccano
 docker ps -a
 docker ps --format "{{.ID}}: {{.Ports}}"
 docker ps --format "{{.ID}}: {{.Image}}"
