@@ -29,7 +29,7 @@ jobs:
             ADMIN_USERNAME: admin
             ADMIN_EMAIL: julia_jackson@gmail.com
             ADMIN_PASSWORD: password
-            DOCCANO_PORT: 8888
+            PORT: 6379
         ports:
           - 6379:6379
     container:
