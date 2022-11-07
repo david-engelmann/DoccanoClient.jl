@@ -17,8 +17,8 @@ echo
 sleep 1
 
 echo ""
-echo "----------- test 172.18.0.3 -----------------"
-if ping -c 1 172.18.0.1 &> /dev/null
+echo "----------- test http://172.18.0.3 -----------------"
+if ping -c 1 http://172.18.0.1 &> /dev/null
 then
   echo "Doccano Installed"
 else
@@ -29,8 +29,8 @@ echo ""
 sleep 1
 
 echo ""
-echo "--------- test 172.18.0.1/v1/admin/login/ -----------"
-if ping -c 1 172.18.0.1/admin/login/ &> /dev/null
+echo "--------- test http://172.18.0.1/admin/login/ -----------"
+if ping -c 1 http://172.18.0.1/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
@@ -39,8 +39,8 @@ fi
 echo ""
 echo ""
 echo ""
-echo "--------- test 0.0.0.0/admin/login/ -----------"
-if ping -c 1 0.0.0.0/admin/login/ &> /dev/null
+echo "--------- test http://0.0.0.0/admin/login/ -----------"
+if ping -c 1 http://0.0.0.0/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
@@ -48,8 +48,8 @@ else
 fi
 echo ""
 echo ""
-echo "--------- test localhost/admin/login/ -----------"
-if ping -c 1 localhost/admin/login/ &> /dev/null
+echo "--------- test http://localhost/admin/login/ -----------"
+if ping -c 1 http://localhost/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
@@ -57,8 +57,8 @@ else
 fi
 echo ""
 echo ""
-echo "--------- test 172.18.0.3/admin/login/ -----------"
-if ping -c 1 172.18.0.3/admin/login/ &> /dev/null
+echo "--------- test http://172.18.0.3/admin/login/ -----------"
+if ping -c 1 http://172.18.0.3/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
@@ -86,6 +86,22 @@ ping -c 1 $PING_DOCCANO_ID:6379/tcp
 echo ""
 echo ""
 
+echo ""
+echo ""
+echo "------------ test ping http://doccano + awk ---------------------"
+echo $PING_DOCCANO_ID
+ping -c 1 http://$PING_DOCCANO_ID
+echo ""
+echo ""
+echo "--------------------- test http://doccano:6379 -----------------"
+ping -c 1 http://$PING_DOCCANO_ID:6379
+echo ""
+echo ""
+
+echo "--------------------- test http://doccano:6379/tcp -----------------"
+ping -c 1 http://$PING_DOCCANO_ID:6379/tcp
+echo ""
+echo ""
 echo ""
 echo ""
 echo "------------ test ping 0.0.0.0 ---------------------"
