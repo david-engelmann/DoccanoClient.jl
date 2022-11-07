@@ -142,13 +142,9 @@ docker ps --format "{{.ID}}: {{.Ports}}"
 docker ps --format "{{.ID}}: {{.Image}}"
 echo
 echo
-PING_DOCKER_ID=$(docker ps | grep "doccano\s" | awk '{ print $1 }')
+export PING_DOCKER_ID=$(docker ps | grep "doccano\s" | awk '{ print $1 }')
 echo $PING_DOCKER_ID
 echo
 docker inspect $PING_DOCKER_ID
-echo "--------- post grep -----------------"
-echo
-PING_DOCKER_IDS_FILTER=$(docker ps)
-echo $PING_DOCKER_IDS_FILTER
 exec "$@"
 
