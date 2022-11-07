@@ -66,13 +66,13 @@ echo $PING_DOCCANO_ID
 ping -c 1 $PING_DOCCANO_ID
 echo ""
 echo ""
-echo "--------------------- test doccano:8000 -----------------"
-ping -c 1 $PING_DOCCANO_ID:8000
+echo "--------------------- test doccano:6379 -----------------"
+ping -c 1 $PING_DOCCANO_ID:6379
 echo ""
 echo ""
 
-echo "--------------------- test doccano:8000/tcp -----------------"
-ping -c 1 $PING_DOCCANO_ID:8000/tcp
+echo "--------------------- test doccano:6379/tcp -----------------"
+ping -c 1 $PING_DOCCANO_ID:6379/tcp
 echo ""
 echo ""
 docker ps -a
