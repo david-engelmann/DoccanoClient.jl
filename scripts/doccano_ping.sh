@@ -75,6 +75,18 @@ echo "--------------------- test doccano:6379/tcp -----------------"
 ping -c 1 $PING_DOCCANO_ID:6379/tcp
 echo ""
 echo ""
+
+echo ""
+echo ""
+echo "------------ test ping 0.0.0.0 ---------------------"
+ping -c 1 0.0.0.0 
+echo ""
+echo ""
+echo "--------------------- test 0.0.0.0:6379 -----------------"
+ping -c 1 0.0.0.0:6379
+echo ""
+echo ""
+
 docker ps -a
 docker ps --format "{{.ID}}: {{.Ports}}"
 docker ps --format "{{.ID}}: {{.Image}}"

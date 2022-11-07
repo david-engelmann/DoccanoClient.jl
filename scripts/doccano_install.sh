@@ -30,6 +30,7 @@ echo "# platform settings" >> .env
 echo "ADMIN_USERNAME=admin" >> .env
 echo "ADMIN_PASSWORD=password" >> .env
 echo "ADMIN_EMAIL=julia_jackson@gmail.com" >> .env
+echo "PORT=6379"
 echo "\n" >> .env
 echo "# rabbit mq settings" >> .env
 echo "RABBITMQ_DEFAULT_USER=doccano" >> .env
