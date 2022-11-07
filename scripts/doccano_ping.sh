@@ -30,7 +30,7 @@ sleep 1
 
 echo ""
 echo "--------- test 172.18.0.1/v1/admin/login/ -----------"
-if ping -c 1 172.18.0.1/v1/auth/login/ &> /dev/null
+if ping -c 1 172.18.0.1/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
@@ -38,8 +38,9 @@ else
 fi
 echo ""
 echo ""
-echo "--------- test localhost/v1/admin/login/ -----------"
-if ping -c 1 localhost/v1/auth/login/ &> /dev/null
+echo ""
+echo "--------- test 0.0.0.0/admin/login/ -----------"
+if ping -c 1 0.0.0.0/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
@@ -47,8 +48,17 @@ else
 fi
 echo ""
 echo ""
-echo "--------- test 172.18.0.3/v1/admin/login/ -----------"
-if ping -c 1 172.18.0.3/v1/auth/login/ &> /dev/null
+echo "--------- test localhost/admin/login/ -----------"
+if ping -c 1 localhost/admin/login/ &> /dev/null
+then
+  echo "Doccano Admin Accessable"
+else
+  echo "Doccano Admin Access Failed"
+fi
+echo ""
+echo ""
+echo "--------- test 172.18.0.3/admin/login/ -----------"
+if ping -c 1 172.18.0.3/admin/login/ &> /dev/null
 then
   echo "Doccano Admin Accessable"
 else
@@ -79,11 +89,19 @@ echo ""
 echo ""
 echo ""
 echo "------------ test ping 0.0.0.0 ---------------------"
-ping -c 1 0.0.0.0 
+ping -c 1 0.0.0.0
 echo ""
 echo ""
 echo "--------------------- test 0.0.0.0:6379 -----------------"
 ping -c 1 0.0.0.0:6379
+echo ""
+echo ""
+echo "--------------------- test http://0.0.0.0 ----------------"
+ping -c 1 http://0.0.0.0
+echo ""
+echo ""
+echo "-------------------- test http://0.0.0.0:6379 -----------------"
+ping -c 1 http://0.0.0.0:6379
 echo ""
 echo ""
 
