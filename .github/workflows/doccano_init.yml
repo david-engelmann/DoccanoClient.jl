@@ -43,8 +43,8 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Install Doccano
-        run: sh ./scripts/doccano_install.sh
+      #- name: Install Doccano
+      #  run: sh ./scripts/doccano_install.sh
       - name: Run Doccano Ping Test
         run: sh ./scripts/doccano_ping.sh
       - name: Install julia
