@@ -83,7 +83,7 @@ export PING_DOCCANO_ID=$(ping -c 1 doccano | grep -Po '(?<=\().*(?=\))' | grep -
 echo ""
 echo ""
 echo "------------ test ping PING_DOCCANO_ID ---------------------"
-echo $PING_DOCCANO_ID
+echo "PING_DOCCANO_ID=$PING_DOCCANO_ID" >> $GITHUB_ENV
 ping -c 1 $PING_DOCCANO_ID
 sleep 10
 echo ""
@@ -100,7 +100,6 @@ sleep 10
 echo ""
 echo ""
 echo "------------ test ping http://PING_DOCCANO_ID + awk ---------------------"
-echo $PING_DOCCANO_ID
 ping -c 1 http://$PING_DOCCANO_ID
 sleep 10
 echo ""
@@ -143,7 +142,7 @@ docker ps --format "{{.ID}}: {{.Image}}"
 echo
 echo
 export PING_DOCKER_ID=$(docker ps | grep "doccano\s" | awk '{ print $1 }')
-echo $PING_DOCKER_ID
+echo "PING_DOCKER_ID=$PING_DOCKER_ID" >> $GITHUB_ENV 
 echo
 docker inspect $PING_DOCKER_ID
 exec "$@"
