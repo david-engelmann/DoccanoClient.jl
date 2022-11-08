@@ -19,7 +19,7 @@ echo ""
 sleep 10
 
 echo ""
-echo "----------- test http://172.18.0.3 -----------------"
+echo "----------- test http://172.18.0.1 -----------------"
 if ping -c 1 http://172.18.0.1 &> /dev/null
 then
   echo "Doccano Installed"
