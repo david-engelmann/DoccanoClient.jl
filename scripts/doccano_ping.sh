@@ -78,6 +78,41 @@ ping -c 1 doccano
 sleep 10
 echo ""
 echo ""
+echo "------------ test doccano:6379 ---------------------"
+ping -c 1 doccano:6379
+sleep 10
+echo ""
+echo ""
+echo "------------ test doccano/admin/login ---------------------"
+ping -c 1 doccano/admin/login/
+sleep 10
+echo ""
+echo ""
+echo "------------ test doccano:6379/admin/login ---------------------"
+ping -c 1 doccano:6379/admin/login/
+sleep 10
+echo ""
+echo ""
+echo "------------ test http://doccano ---------------------"
+ping -c 1 http://doccano
+sleep 10
+echo ""
+echo ""
+echo "------------ test http://doccano:6379 ---------------------"
+ping -c 1 http://doccano:6379
+sleep 10
+echo ""
+echo ""
+echo "------------ test http://doccano/admin/login ---------------------"
+ping -c 1 http://doccano/admin/login/
+sleep 10
+echo ""
+echo ""
+echo "------------ test http://doccano:6379/admin/login ---------------------"
+ping -c 1 http://doccano:6379/admin/login/
+sleep 10
+echo ""
+echo ""
 echo "------------ set PING_DOCCANO_ID with doccano from grep ------------------"
 export PING_DOCCANO_ID=$(ping -c 1 doccano | grep -Po '(?<=\().*(?=\))' | grep -Po '.*(?=\))')
 echo ""
