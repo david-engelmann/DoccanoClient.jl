@@ -57,3 +57,5 @@ jobs:
         run: sh ./scripts/julia_install.sh
       - name: Run Doccano Login Test
         run: sh ./scripts/doccano_login.sh
+      - name: Run Full Doccano Endpoint Test
+        run: sh ./scrips/doccano_full_test.sh
