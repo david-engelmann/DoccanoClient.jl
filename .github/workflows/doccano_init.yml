@@ -58,4 +58,4 @@ jobs:
       - name: Run Doccano Login Test
         run: sh ./scripts/doccano_login.sh
       - name: Run Full Doccano Endpoint Test
-        run: sh ./scrips/doccano_full_test.sh
+        run: sh ./scripts/doccano_full_test.sh
