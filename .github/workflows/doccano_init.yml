@@ -57,5 +57,5 @@ jobs:
             apt-get update; apt-get install curl wget -y
             curl doccano:6379
             wget -qO- doccano:6379 | xargs echo
-            PUBLIC_IP=`wget doccano:6379 -O - -q ; echo`
+            PUBLIC_IP=`wget doccano -O - -q ; echo`
             echo $PUBLIC_IP
