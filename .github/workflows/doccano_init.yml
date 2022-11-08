@@ -51,3 +51,9 @@ jobs:
         run: sh ./scripts/julia_install.sh
       - name: Run Doccano Login Test
         run: sh ./scripts/doccano_login.sh
+        
+      - name: Curl Test
+        run: |
+        apt-get update; apt-get install curl -y
+        curl doccano:6379 > curl_result_docker
+        cat curl_result_docker
