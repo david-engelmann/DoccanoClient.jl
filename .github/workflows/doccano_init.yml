@@ -54,6 +54,7 @@ jobs:
         
       - name: Curl Test
         run: |
-            apt-get update; apt-get install curl -y
+            apt-get update; apt-get install curl wget -y
             curl doccano:6379 > curl_result_docker
-            cat curl_result_docker
+            wget -qO- doccano:6379 | xargs echo > wget_result_docker
+            cat wget_result_docker
