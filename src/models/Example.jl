@@ -1,11 +1,11 @@
-struct Example
-    id::Integer
-    text::Integer
-    meta::Dict
-    annotation_approver::String
-    comment_count::Integer
-    is_confirmed::Boolean
-    filename::String
-    upload_name::String
-    score::Float
+Base.@kwdef struct Example
+    id::Union{Integer, nothing}
+    text::Union{Integer, nothing} = nothing
+    meta::Dict = Dict()
+    annotation_approver::Union{String, nothing} = nothing
+    comment_count::Integer = 0
+    is_confirmed::Boolean = false
+    filename::String = ""
+    upload_name::String = ""
+    score::Float = 100.0
 end
