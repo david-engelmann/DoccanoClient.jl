@@ -1,7 +1,7 @@
-struct Member
-    id::Integer
+Base.@kwdef struct Member
+    id::Union{Integer, nothing}
     user::Integer
     role::Integer
-    username::String
-    rolename::String
+    username::String = ""
+    rolename::String = ""
 end
