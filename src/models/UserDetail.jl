@@ -10,10 +10,10 @@ struct PasswordUpdated
     detail::String
 end
 
-struct PasswordRestriction
-    min_lenght::Integer
-    max_length::Integer
-    strip_whitespace::Boolean
+Base.@kwdef struct PasswordRestriction
+    min_lenght::Integer = 2
+    max_length::Integer = 128
+    strip_whitespace::Boolean = true
 end
 
 struct PasswordChange
