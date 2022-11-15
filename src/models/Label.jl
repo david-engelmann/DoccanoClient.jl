@@ -1,9 +1,9 @@
-struct Label
-    id::Integer
+Base.@kwdef struct Label
+    id::Union{Integer, nothing}
     example::Integer
-    prob::Float
-    manual::Boolean
-    user::Integer
+    prob::Float = 0.0
+    manual::Boolean = false
+    user::Union{Integer, nothing} = nothing
 end
 
 struct Category <: Label
