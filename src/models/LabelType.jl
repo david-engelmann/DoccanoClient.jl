@@ -1,8 +1,8 @@
 struct LabelType
-    id::Integer
+    id::Union{Integer, nothing}
     text::String
-    prefix_key::String
-    suffix_key::String
+    prefix_key::Union{String, nothing}
+    suffix_key::Union{String, nothing}
     background_color::String
     text_color::String
 end
