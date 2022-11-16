@@ -1,5 +1,5 @@
 include("Tasks.jl")
-include("authorization/Credentials.jl")
+include("authorization/Auth.jl")
 #module DoccanoClient
 
 #=
