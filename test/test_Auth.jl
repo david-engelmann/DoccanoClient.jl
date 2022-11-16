@@ -1,5 +1,6 @@
 include("../src/DoccanoClient.jl")
-include("../src/authorization/Credentials.jl")
+include("../src/authorization/Auth.jl")
+include("../src/models/Auth.jl")
 using Test
 
 @testset "CSRF Token" begin
@@ -32,5 +33,8 @@ end
         base_url = "http://127.0.0.1"
     end
     version = "v1"
-    @test authorize(base_url, username, password, version).csrf_token == csrf_token
+    auth = authorize(base_url, username, password, version)
+    @test typeof(auth) <: Auth
+    @test !isnothing(auth.csrf_token)
+    @test !isempty(auth)
 end
