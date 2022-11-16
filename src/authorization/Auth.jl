@@ -23,11 +23,7 @@ function get_csrf_token(base_url :: String)
     HTTP.open("GET", url, cookies = true) do io
         while !eof(io)
             readavailable(io)
-            try
-                cookie_string = Dict(io.message.headers)["Set-Cookie"]
-            catch err
-                cookie_string = Dict(io.message.headers)["Cookie"]
-            end
+            cookie_string = parse_cookies_for_csrf_header(io)
             cookie_arry = split(cookie_string, ";")
             csrf_token = [cookie for cookie in cookie_arry if occursin("csrf", cookie)][1]
             global csrf_token = String(split(csrf_token, "=")[2])
@@ -35,6 +31,15 @@ function get_csrf_token(base_url :: String)
         end
     end
     return csrf_token
+end
+
+function parse_cookies_for_csrf_header(io)
+    try
+        cookie_string = Dict(io.message.headers)["Set-Cookie"]
+    catch err
+        cookie_string = Dict(io.message.headers)["Cookie"]
+    end
+    return cookie_string
 end
 
 function make_login_post(url :: String, headers:: Vector{Pair{String, String}}, user_body :: HTTP.Form)
