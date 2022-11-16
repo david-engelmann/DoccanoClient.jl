@@ -3,6 +3,9 @@ struct Auth
     csrf_token::String
     username::String
     password::String
+    function Auth(csrf_token::AbstractString, username::AbstractString, password::AbstractString)
+        new(csrf_token, username, password)
+    end
 end
 
 function Auth(data::AbstractDict{Symbol, <: AbstractString})
