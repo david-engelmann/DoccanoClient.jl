@@ -24,7 +24,6 @@ function get_csrf_token(base_url :: String)
         while !eof(io)
             readavailable(io)
             try
-
                 cookie_string = Dict(io.message.headers)["Set-Cookie"]
             catch err
                 cookie_string = Dict(io.message.headers)["Cookie"]
