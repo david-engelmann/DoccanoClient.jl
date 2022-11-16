@@ -32,5 +32,5 @@ end
         base_url = "http://127.0.0.1"
     end
     version = "v1"
-    @test authorize(base_url, username, password, csrf_token, version).csrf_token == csrf_token
+    @test authorize(base_url, username, password, version).csrf_token == csrf_token
 end
