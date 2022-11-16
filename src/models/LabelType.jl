@@ -44,7 +44,7 @@ Base.@kwdef struct TextConstraint
 end
 
 Base.@kwdef struct ColorConstraint
-    regex_validation::String = "#[a-fA-F0-9]{6}"
+    regex_validation::String = r"#[a-fA-F0-9]{6}"
 end
 
 struct LabelType
