@@ -1,4 +1,5 @@
 include("../src/DoccanoClient.jl")
+include("../src/authorization/Credentials.jl")
 using Test
 
 @testset "CSRF Token" begin
