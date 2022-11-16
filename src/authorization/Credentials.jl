@@ -5,7 +5,7 @@ function authorize(base_url :: String, username :: String, password :: String, v
     csrf_token = get_csrf_token(base_url)
     @info "Login with CSRF Token"
     csrf_token = login(base_url, username, password, csrf_token, version)
-    @inf "Load Auth"
+    @info "Load Auth"
     return Auth(csrf_token, username, password)
 end
 
