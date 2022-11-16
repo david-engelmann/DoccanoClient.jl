@@ -9,6 +9,13 @@ function authorize(base_url :: String, username :: String, password :: String, v
     return Auth(csrf_token, username, password)
 end
 
+function authorize_from_env(version = "v1")
+    base_url = ENV["DOCCANO_BASE_URL"]
+    username = ENV["DOCCANO_USERNAME"]
+    password = ENV["DOCCANO_PASSWORD"]
+    authorize(base_url, username, password, version)
+end
+
 function get_csrf_token(base_url :: String)
     base_url = if endswith(base_url, "/") base_url else base_url * "/" end
     url = base_url * "admin/login/"
@@ -51,3 +58,5 @@ function login(base_url :: String, username :: String, password :: String, csrf 
     return csrf_token
 end
 
+auth = authorize_from_env()
+csrf_token = auth.csrf_token
