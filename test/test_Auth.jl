@@ -35,6 +35,6 @@ end
     version = "v1"
     auth = authorize(base_url, username, password, version)
     @test typeof(auth) <: Auth
-    @test !isnothing(auth.csrf_token)
-    @test !isempty(auth)
+    @test isnothing(auth.csrf_token) == false
+    @test isempty(auth) == false
 end
