@@ -23,8 +23,12 @@ function get_csrf_token(base_url :: String)
     HTTP.open("GET", url, cookies = true) do io
         while !eof(io)
             readavailable(io)
+            try
 
-            cookie_string = Dict(io.message.headers)["Set-Cookie"]
+                cookie_string = Dict(io.message.headers)["Set-Cookie"]
+            catch err
+                cookie_string = Dict(io.message.headers)["Cookie"]
+            end
             cookie_arry = split(cookie_string, ";")
             csrf_token = [cookie for cookie in cookie_arry if occursin("csrf", cookie)][1]
             global csrf_token = String(split(csrf_token, "=")[2])
