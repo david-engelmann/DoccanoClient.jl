@@ -33,7 +33,9 @@ end
         base_url = "http://127.0.0.1"
     end
     version = "v1"
+    @info "Call authorize from test_Auth.jl"
     auth = authorize(base_url, username, password, version)
+    @info "Post authorize call"
     @test typeof(auth) <: Auth
     @test isnothing(auth.csrf_token) == false
     @test isempty(auth) == false
