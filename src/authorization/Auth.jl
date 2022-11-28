@@ -67,5 +67,7 @@ function login(base_url :: String, username :: String, password :: String, csrf 
     return csrf_token
 end
 
+#=
 auth = authorize_from_env()
 csrf_token = auth.csrf_token
+=#
