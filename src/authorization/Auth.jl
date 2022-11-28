@@ -7,6 +7,7 @@ function authorize(base_url :: String, username :: String, password :: String, v
     @info String(csrf_token)
     csrf_token = login(base_url, username, password, csrf_token, version)
     @info "Load Auth"
+    @info String(csrf_token)
     return Auth(csrf_token, username, password)
 end
 
