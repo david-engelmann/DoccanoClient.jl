@@ -34,10 +34,11 @@ function get_csrf_token(base_url :: String)
 end
 
 function parse_cookies_for_csrf_header(io)
-    print(io.message.headers)
+    println("This is the io headers")
+    println(io.message.headers)
     try
         cookie_string = Dict(io.message.headers)["Set-Cookie"]
-    catch
+    catch e
         cookie_string = Dict(io.message.headers)["Cookie"]
     end
     return cookie_string
