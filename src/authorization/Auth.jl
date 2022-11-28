@@ -28,7 +28,6 @@ function get_csrf_token(base_url :: String)
             cookie_arry = split(cookie_string, ";")
             csrf_token = [cookie for cookie in cookie_arry if occursin("csrf", cookie)][1]
             global csrf_token = String(split(csrf_token, "=")[2])
-
         end
     end
     return csrf_token
@@ -38,6 +37,7 @@ function parse_cookies_for_csrf_header(io)
     try
         return Dict(io.message.headers)["Set-Cookie"]
     catch e
+        println(io.message.headers)
         return Dict(io.message.headers)["Cookie"]
     end
 end
