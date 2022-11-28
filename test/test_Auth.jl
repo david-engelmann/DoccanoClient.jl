@@ -19,6 +19,7 @@ end
         base_url = "http://127.0.0.1"
     end
     version = "v1"
+    @info "Log in with csrf_token that was found"
     @test login(base_url, username, password, csrf_token, version) == csrf_token
 end
 
