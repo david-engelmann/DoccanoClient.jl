@@ -36,10 +36,12 @@ end
 function parse_cookies_for_csrf_header(io)
     try
         cookie_string = Dict(io.message.headers)["Set-Cookie"]
+        println(cookie_string)
     catch e
+        warn("Exception: ", e)
         cookie_string = Dict(io.message.headers)["Cookie"]
+        println(cookie_string)
     end
-    println(cookie_string)
     return cookie_string
 end
 
