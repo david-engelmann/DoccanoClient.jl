@@ -4,6 +4,7 @@ function authorize(base_url :: String, username :: String, password :: String, v
     @info "Retrieve CSRF Token"
     csrf_token = get_csrf_token(base_url)
     @info "Login with CSRF Token"
+    @info String(csrf_token)
     csrf_token = login(base_url, username, password, csrf_token, version)
     @info "Load Auth"
     return Auth(csrf_token, username, password)
@@ -50,10 +51,9 @@ function login(base_url :: String, username :: String, password :: String, csrf 
     base_url = if endswith(base_url, "/") base_url else base_url * "/" end
     base_url = base_url * version * "/"
     url = base_url *  "auth/login/"
-    println(url)
     user_body = HTTP.Form(Dict(["username"=>username, "password"=>password]))
     headers = [
-        "X-CSRFToken"=>csrf, 
+        "X-CSRFToken"=>csrf,
         "referer"=>base_url
         ]
 
