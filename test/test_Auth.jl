@@ -1,6 +1,4 @@
-#=
 include("../src/DoccanoClient.jl")
-=#
 include("../src/authorization/Auth.jl")
 include("../src/models/Auth.jl")
 using Test
