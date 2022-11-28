@@ -36,12 +36,10 @@ end
 
 function parse_cookies_for_csrf_header(io)
     try
-        cookie_string = Dict(io.message.headers)["Set-Cookie"]
+        return Dict(io.message.headers)["Set-Cookie"]
     catch e
-        warn("Exception: ", e)
-        cookie_string = Dict(io.message.headers)["Cookie"]
+        return Dict(io.message.headers)["Cookie"]
     end
-    return cookie_string
 end
 
 function make_login_post(url :: String, headers:: Vector{Pair{String, String}}, user_body :: HTTP.Form)
