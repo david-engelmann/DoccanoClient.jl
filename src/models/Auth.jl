@@ -1,4 +1,3 @@
-
 struct Auth
     csrf_token::String
     username::String
