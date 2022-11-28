@@ -26,7 +26,6 @@ function get_csrf_token(base_url :: String)
         while !eof(io)
             readavailable(io)
             cookie_string = parse_cookies_for_csrf_header(io)
-            println(cookie_string)
             cookie_arry = split(cookie_string, ";")
             csrf_token = [cookie for cookie in cookie_arry if occursin("csrf", cookie)][1]
             global csrf_token = String(split(csrf_token, "=")[2])
@@ -39,7 +38,6 @@ function parse_cookies_for_csrf_header(io)
     try
         return Dict(io.message.headers)["Set-Cookie"]
     catch e
-        println(io.message.headers)
         return Dict(io.message.headers)["Cookie"]
     end
 end
@@ -67,7 +65,5 @@ function login(base_url :: String, username :: String, password :: String, csrf 
     return csrf_token
 end
 
-#=
 auth = authorize_from_env()
 csrf_token = auth.csrf_token
-=#
