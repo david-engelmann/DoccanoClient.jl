@@ -17,10 +17,11 @@ end
         username = "admin"
         password = "password"
         base_url = "http://127.0.0.1"
+    finally
+        version = "v1"
+        @info "Log in with csrf_token that was found"
+        @test login(base_url, username, password, csrf_token, version) == csrf_token
     end
-    version = "v1"
-    @info "Log in with csrf_token that was found"
-    @test login(base_url, username, password, csrf_token, version) == csrf_token
 end
 
 @testset "Authorize" begin
@@ -32,12 +33,13 @@ end
         username = "admin"
         password = "password"
         base_url = "http://127.0.0.1"
+    finally
+        version = "v1"
+        @info "Call authorize from test_Auth.jl"
+        auth = authorize(base_url, username, password, version)
+        @info "Post authorize call"
+        @test typeof(auth) <: Auth
+        @test isnothing(auth.csrf_token) == false
+        @test isempty(auth) == false
     end
-    version = "v1"
-    @info "Call authorize from test_Auth.jl"
-    auth = authorize(base_url, username, password, version)
-    @info "Post authorize call"
-    @test typeof(auth) <: Auth
-    @test isnothing(auth.csrf_token) == false
-    @test isempty(auth) == false
 end
