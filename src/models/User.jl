@@ -1,6 +1,6 @@
 struct User
     id::Integer
     username::String
-    is_superuser::Boolean
-    is_staff::Boolean
+    is_superuser::Bool
+    is_staff::Bool
 end

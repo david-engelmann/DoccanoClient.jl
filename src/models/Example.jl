@@ -4,7 +4,7 @@ Base.@kwdef struct Example
     meta::Dict = Dict()
     annotation_approver::Union{String, nothing} = nothing
     comment_count::Integer = 0
-    is_confirmed::Boolean = false
+    is_confirmed::Bool = false
     filename::String = ""
     upload_name::String = ""
     score::Float = 100.0

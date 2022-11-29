@@ -40,7 +40,7 @@ VALID_SUFFIX_KEY = ["0",
 Base.@kwdef struct TextConstraint
     min_length::Integer = 1
     max_length::Integer = 100
-    strip_whitespace::Boolean = true
+    strip_whitespace::Bool = true
 end
 
 Base.@kwdef struct ColorConstraint

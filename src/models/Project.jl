@@ -4,11 +4,11 @@ Base.@kwdef struct Project
     description::String
     guideline::String
     project_type::String
-    random_order::Boolean = false
-    collaborative_annotation::Boolean = false
-    single_class_classification::Boolean = false
-    allow_overlapping::Boolean = false
-    grapheme_mode::Boolean = false
-    use_relation::Boolean = false
+    random_order::Bool = false
+    collaborative_annotation::Bool = false
+    single_class_classification::Bool = false
+    allow_overlapping::Bool = false
+    grapheme_mode::Bool = false
+    use_relation::Bool = false
     tags::Array{String} = []
 end
