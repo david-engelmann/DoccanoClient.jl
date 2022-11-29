@@ -13,13 +13,13 @@ end
         username = ENV["DOCCANO_USERNAME"]
         password = ENV["DOCCANO_PASSWORD"]
         base_url = ENV["DOCCANO_BASE_URL"]
+        println(base_url)
     catch err
         username = "admin"
         password = "password"
         base_url = "http://127.0.0.1"
     finally
         version = "v1"
-        @info "Log in with csrf_token that was found"
         @test login(base_url, username, password, csrf_token, version) == csrf_token
     end
 end
