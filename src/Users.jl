@@ -1,7 +1,7 @@
 #include("DoccanoClient.jl")
 #include("../test/test_Auth.jl")
 #using DoccanoClient: csrf_token as csrf_token
-include("../models/User.jl")
+include("./models/User.jl")
 
 
 function create_users_url(base_url :: String, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
