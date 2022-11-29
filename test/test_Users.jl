@@ -10,6 +10,7 @@ using JSON3
         base_url = "http://127.0.0.1"
     end
     =#
+    @info "Start Testing the get_users function"
     base_url = ENV["DOCCANO_BASE_URL"]
     version = "v1"
     users = get_users(base_url, csrf_token, version)
@@ -25,6 +26,7 @@ using JSON3
        "is_staff": true
 
 }"""
+    @info "Start Testing the get_current_user functio"
     current_user = get_current_user(base_url, "me", csrf_token)
     @test isempty(users) == false
     @test admin_block[1] == JSON3.read(expected_result_string)
