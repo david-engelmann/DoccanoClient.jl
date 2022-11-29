@@ -38,8 +38,6 @@ end
 function get_current_user(base_url :: String, _csrf_token :: String, version :: String="v1")
     url = create_current_user_url(base_url, version)
     headers = ["X-CSRFToken"=>_csrf_token]
-    @info url
-    @info headers
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
             global current_user = JSON3.read(String(readavailable(io)))
