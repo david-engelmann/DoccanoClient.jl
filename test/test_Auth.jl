@@ -9,6 +9,7 @@ using Test
 end
 
 @testset "Login" begin
+    #=
     try
         username = ENV["DOCCANO_USERNAME"]
         password = ENV["DOCCANO_PASSWORD"]
@@ -18,13 +19,15 @@ end
         username = "admin"
         password = "password"
         base_url = "http://127.0.0.1"
-    finally
-        version = "v1"
-        @test login(base_url, username, password, csrf_token, version) == csrf_token
     end
+    =#
+    base_url, username, password = get_authorization_info_from_env()
+    version = "v1"
+    @test login(base_url, username, password, csrf_token, version) == csrf_token
 end
 
 @testset "Authorize" begin
+    #=
     try
         username = ENV["DOCCANO_USERNAME"]
         password = ENV["DOCCANO_PASSWORD"]
@@ -33,13 +36,14 @@ end
         username = "admin"
         password = "password"
         base_url = "http://127.0.0.1"
-    finally
-        version = "v1"
-        @info "Call authorize from test_Auth.jl"
-        auth = authorize(base_url, username, password, version)
-        @info "Post authorize call"
-        @test typeof(auth) <: Auth
-        @test isnothing(auth.csrf_token) == false
-        @test isempty(auth) == false
     end
+    =#
+    base_url, username, password = get_authorization_info_from_env()
+    version = "v1"
+    @info "Call authorize from test_Auth.jl"
+    auth = authorize(base_url, username, password, version)
+    @info "Post authorize call"
+    @test typeof(auth) <: Auth
+    @test isnothing(auth.csrf_token) == false
+    @test isempty(auth) == false
 end

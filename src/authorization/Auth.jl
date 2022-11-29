@@ -12,10 +12,15 @@ function authorize(base_url :: String, username :: String, password :: String, v
     return Auth(csrf_token, username, password)
 end
 
-function authorize_from_env(version = "v1")
+function get_authorization_info_from_env()
     base_url = ENV["DOCCANO_BASE_URL"]
     username = ENV["DOCCANO_USERNAME"]
     password = ENV["DOCCANO_PASSWORD"]
+    return base_url, username, password
+end
+
+function authorize_from_env(version = "v1")
+    base_url, username, password = get_authorization_info_from_env()
     authorize(base_url, username, password, version)
 end
 
