@@ -45,5 +45,4 @@ end
     @info "Post authorize call"
     @test typeof(auth) <: Auth
     @test isnothing(auth.csrf_token) == false
-    @test isempty(auth) == false
 end
