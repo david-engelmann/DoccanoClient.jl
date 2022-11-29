@@ -27,7 +27,7 @@ using JSON3
 
 }"""
     @info "Start Testing the get_current_user functio"
-    current_user = get_current_user(base_url, csrf_token, "me")
+    current_user = get_current_user(base_url, csrf_token)
     @test isempty(users) == false
     @test admin_block[1] == JSON3.read(expected_result_string)
     @test isempty(current_user) == false
