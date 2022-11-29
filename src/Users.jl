@@ -1,4 +1,4 @@
-#include("DoccanoClient.jl")
+include("DoccanoClient.jl")
 #include("../test/test_Auth.jl")
 #using DoccanoClient: csrf_token as csrf_token
 
@@ -30,7 +30,7 @@ function get_users(base_url :: String, _csrf_token :: String, version :: String=
             global users = JSON3.read(String(readavailable(io)))
         end
     end
-    return users   
+    return users
 end
 
 function get_current_user(base_url :: String, _csrf_token :: String, version :: String="v1")
@@ -41,7 +41,7 @@ function get_current_user(base_url :: String, _csrf_token :: String, version :: 
             global current_user = JSON3.read(String(readavailable(io)))
         end
     end
-    return current_user      
+    return current_user
 end
 
 
