@@ -2,7 +2,11 @@ include("../models/Auth.jl")
 
 function authorize(base_url :: String, username :: String, password :: String, version = "v1")
     @info "Retrieve CSRF Token"
-    csrf_token = get_csrf_token(base_url)
+    if isdefined(csrf_token)
+        csrf_token = csrf_token
+    else
+        csrf_token = get_csrf_token(base_url)
+    end
     @info "Login with CSRF Token"
     @info String(csrf_token)
     csrf_token = login(base_url, username, password, csrf_token, version)
