@@ -1,4 +1,4 @@
-include("DoccanoClient.jl")
+#include("DoccanoClient.jl")
 #include("../test/test_Auth.jl")
 #using DoccanoClient: csrf_token as csrf_token
 
