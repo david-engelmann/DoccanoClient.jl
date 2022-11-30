@@ -13,7 +13,7 @@ end
 Base.@kwdef struct PasswordRestriction
     min_lenght::Integer = 2
     max_length::Integer = 128
-    strip_whitespace::Boolean = true
+    strip_whitespace::Bool = true
 end
 
 struct PasswordChange

@@ -1,6 +1,8 @@
 #include("DoccanoClient.jl")
 #include("../test/test_Auth.jl")
 #using DoccanoClient: csrf_token as csrf_token
+include("./models/User.jl")
+
 
 function create_users_url(base_url :: String, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
@@ -30,7 +32,7 @@ function get_users(base_url :: String, _csrf_token :: String, version :: String=
             global users = JSON3.read(String(readavailable(io)))
         end
     end
-    return users   
+    return users
 end
 
 function get_current_user(base_url :: String, _csrf_token :: String, version :: String="v1")
@@ -41,7 +43,7 @@ function get_current_user(base_url :: String, _csrf_token :: String, version :: 
             global current_user = JSON3.read(String(readavailable(io)))
         end
     end
-    return current_user      
+    return current_user
 end
 
 

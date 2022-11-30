@@ -2,7 +2,7 @@ Base.@kwdef struct Label
     id::Union{Integer, nothing}
     example::Integer
     prob::Float = 0.0
-    manual::Boolean = false
+    manual::Bool = false
     user::Union{Integer, nothing} = nothing
 end
 

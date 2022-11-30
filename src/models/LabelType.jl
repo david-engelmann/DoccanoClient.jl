@@ -40,11 +40,11 @@ VALID_SUFFIX_KEY = ["0",
 Base.@kwdef struct TextConstraint
     min_length::Integer = 1
     max_length::Integer = 100
-    strip_whitespace::Boolean = true
+    strip_whitespace::Bool = true
 end
 
 Base.@kwdef struct ColorConstraint
-    regex_validation::String = "#[a-fA-F0-9]{6}"
+    regex_validation::String = r"#[a-fA-F0-9]{6}"
 end
 
 struct LabelType

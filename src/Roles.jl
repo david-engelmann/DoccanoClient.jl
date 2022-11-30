@@ -1,5 +1,6 @@
 #include("DoccanoClient.jl")
 include("Users.jl")
+include("./models/Role.jl")
 
 function create_project_roles_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
@@ -33,7 +34,7 @@ function get_roles(base_url :: String, _csrf_token :: String, version :: String=
             global roles = JSON3.read(String(readavailable(io)))
         end
     end
-    return roles      
+    return roles
 end
 
 function get_rolemappings(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
@@ -44,7 +45,7 @@ function get_rolemappings(base_url :: String, project_id :: Integer, _csrf_token
             global rolemappings = JSON3.read(String(readavailable(io)))
         end
     end
-    return rolemappings      
+    return rolemappings
 end
 
 function get_rolemapping_detail(base_url :: String, project_id :: Integer, rolemapping_id :: Integer, _csrf_token :: String, version :: String="v1")
@@ -55,7 +56,7 @@ function get_rolemapping_detail(base_url :: String, project_id :: Integer, rolem
             global rolemapping_detail = JSON3.read(String(readavailable(io)))
         end
     end
-    return rolemapping_detail      
+    return rolemapping_detail
 end
 
 function create_user_role_pairs(usernames :: Union{Vector{String}, String}, roles :: Union{Vector{String}, String})
@@ -100,7 +101,7 @@ function attach_users_to_project(base_url :: String, project_id :: Integer, user
 
         role = [potential_role for potential_role in all_roles if potential_role["rolename"] == rolename]
         role = role[1]
-        
+
         user_role_payload = Dict([
             "id": 0,
             "role": role["id"],
