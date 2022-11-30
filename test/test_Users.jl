@@ -26,7 +26,7 @@ using JSON3
        "is_staff": true
 
 }"""
-    @info "Start Testing the get_current_user functio"
+    @info "Start Testing the get_current_user function"
     current_user = get_current_user(base_url, csrf_token)
     @test isempty(users) == false
     @test admin_block[1] == JSON3.read(expected_result_string)
