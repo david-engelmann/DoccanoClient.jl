@@ -1,6 +1,6 @@
 #include("DoccanoClient.jl")
 include("Users.jl")
-include("../models/Role.jl")
+include("./models/Role.jl")
 
 function create_project_roles_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
