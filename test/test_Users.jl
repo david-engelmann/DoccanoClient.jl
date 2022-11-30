@@ -48,9 +48,8 @@ end
     no_suffix_user_url = create_users_url(base_url, version)
     no_suffix_current_user_url = create_current_user_url(base_url, version)
 
-    test_no_suffix_user_url == if endswith(base_url, raw"/") "$(base_url)$(version)/users" else "$(base_url)/$(version)/users" end
+    test_no_suffix_user_url = if endswith(base_url, raw"/") "$(base_url)$(version)/users" else "$(base_url)/$(version)/users" end
     test_no_suffix_current_user_url = if endswith(base_url, raw"/") "$(base_url)$(version)/me" else "$(base_url)/$(version)/me" end
-
 
     @test no_suffix_user_url == test_no_suffix_user_url
     @test no_suffix_current_user_url == test_no_suffix_current_user_url
