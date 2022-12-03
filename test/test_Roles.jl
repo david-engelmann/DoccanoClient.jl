@@ -2,19 +2,7 @@ include("../src/Roles.jl")
 using Test
 
 @testset "Roles - Get Functions" begin
-    #=
-    try
-        base_url = ENV["DOCCANO_BASE_URL"]
-        test_project_id = ENV["DOCCANO_TEST_PROJECT_ID"]
-    catch err
-        base_url = "http://127.0.0.1"
-        test_project_id = 106
-    end
-    =#
     base_url = ENV["DOCCANO_BASE_URL"]
-    #=
-    test_project_id = ENV["DOCCANO_TEST_PROJECT_ID"]
-    =#
     test_project_id = 0
     roles = get_roles(base_url, csrf_token, "v1")
     target_role_id = 1
@@ -25,19 +13,7 @@ end
 
 
 @testset "Roles - Link Creation" begin
-    #=
-    try
-        base_url = ENV["DOCCANO_BASE_URL"]
-        test_project_id = ENV["DOCCANO_TEST_PROJECT_ID"]
-    catch err
-        base_url = "http://127.0.0.1"
-        test_project_id = 106
-    end
-    =#
     base_url = ENV["DOCCANO_BASE_URL"]
-    #=
-    test_project_id = ENV["DOCCANO_TEST_PROJECT_ID"]
-    =#
     test_project_id = 0
     version = "v1"
     no_suffix_role_url = create_roles_url(base_url, version)
