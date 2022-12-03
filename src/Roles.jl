@@ -39,6 +39,7 @@ end
 
 function get_rolemappings(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
     url = create_project_roles_url(base_url, project_id, version)
+    @info url
     headers = ["X-CSRFToken"=>_csrf_token]
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
