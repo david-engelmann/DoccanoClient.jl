@@ -1,8 +1,8 @@
 Base.@kwdef struct Example
-    id::Union{Integer, nothing}
-    text::Union{Integer, nothing} = nothing
+    id::Union{Integer, Nothing}
+    text::Union{Integer, Nothing} = nothing
     meta::Dict = Dict()
-    annotation_approver::Union{String, nothing} = nothing
+    annotation_approver::Union{String, Nothing} = nothing
     comment_count::Integer = 0
     is_confirmed::Bool = false
     filename::String = ""

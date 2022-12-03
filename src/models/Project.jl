@@ -1,5 +1,5 @@
 Base.@kwdef struct Project
-    id::Union{Integer, nothing}
+    id::Union{Integer, Nothing}
     name::String
     description::String
     guideline::String
