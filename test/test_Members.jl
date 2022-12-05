@@ -7,7 +7,9 @@ using Test
     target_role_id = 1
     version = "v1"
     @info "Test adding Members to Project"
-    attach_members_to_project(base_url, test_project_id, ["admin"], ["project_admin"], csrf_token, version)
+    project_attachment_results = attach_members_to_project(base_url, test_project_id, ["admin"], ["project_admin"], csrf_token, version)
+    @info "Project Attachment Results"
+    @info project_attachment_results
     members = get_members(base_url, test_project_id, csrf_token, version)
     @test isempty(members) == false
 end
