@@ -13,10 +13,6 @@ function create_roles_url(base_url :: String, version :: String="v1", url_suffix
     end
 end
 
-function make_attach_user_request(url :: String, headers :: Vector{Pair{String, String}}, user_body :: Union{HTTP.Form, String})
-    return HTTP.post(url, headers, body=user_body; cookies = true)
-end
-
 function get_roles(base_url :: String, _csrf_token :: String, version :: String="v1")
     url = create_roles_url(base_url, version)
     @info url
@@ -27,62 +23,6 @@ function get_roles(base_url :: String, _csrf_token :: String, version :: String=
         end
     end
     return roles
-end
-
-function create_user_role_pairs(usernames :: Union{Vector{String}, String}, roles :: Union{Vector{String}, String})
-    user_role_pairs = []
-    if isa(roles, Vector)
-        if length(usernames) == length(roles) && isa(usernames, Vector)
-            for (name, role) in zip(usernames, roles)
-                push!(user_role_pairs, name => role)
-            end
-        else
-            if isa(usernames, Vector)
-                for name in usernames
-                    role = roles[1]
-                    push!(user_role_pairs, name => role)
-                end
-            else
-                push!(user_role_pairs, usernames => roles[1])
-            end
-        end
-    else
-        if isa(usernames, Vector)
-            for name in usernames
-                push!(user_role_pairs, name => roles)
-            end
-        else
-            push!(user_role_pairs, usernames => roles)
-        end
-    end
-    return user_role_pairs
-end
-
-function attach_users_to_project(base_url :: String, project_id :: Integer, usernames :: Union{Vector{String}, String}, roles :: Union{Vector{String}, String}, _csrf_token :: String, version :: String="v1")
-    println("write this function")
-    url = create_project_roles_url(base_url, project_id, version)
-    all_users = get_users(base_url, _csrf_token, version)
-    all_roles = get_roles(base_url, _csrf_token, version)
-
-    user_response = []
-    for (username, rolename) in create_user_role_pairs(usernames, roles)
-        user = [potential_user for potential_user in all_users if potential_user["username"] == username]
-        user = user[1]
-
-        role = [potential_role for potential_role in all_roles if potential_role["rolename"] == rolename]
-        role = role[1]
-
-        user_role_payload = Dict([
-            "id": 0,
-            "role": role["id"],
-            "rolename": rolename,
-            "user": user["id"],
-            "username": username
-        ])
-        r = make_attach_user_request(url, JSON3.write(user_role_payload))   
-        push!(user_response, JSON3.read(r.body))
-    end
-    return user_response
 end
 
 #base_url = ENV["DOCCANO_BASE_URL"]
