@@ -26,7 +26,7 @@ end
     @test example_upload_url == test_example_upload_url
 
     fp_process_url = create_fp_process_url(base_url, version)
-    test_fp_process_url = if endswith(base_url, raw"/") "$(base_url)$(version)/fp/process/" elsee "$(base_url)/$(version)/fp/process/" end
+    test_fp_process_url = if endswith(base_url, raw"/") "$(base_url)$(version)/fp/process/" else "$(base_url)/$(version)/fp/process/" end
     @test fp_process_url == test_fp_process_url
 
     fp_revert_url = create_fp_revert_url(base_url, version)

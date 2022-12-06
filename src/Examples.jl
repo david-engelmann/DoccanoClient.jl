@@ -1,6 +1,7 @@
 include("DoccanoClient.jl")
 include("Projects.jl")
 include("utils/Filenames.jl")
+include("./models/Example.jl")
 
 function create_url_query(url :: String, url_parameters :: Dict)
     url = URI(url)
