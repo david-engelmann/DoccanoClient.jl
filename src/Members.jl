@@ -72,6 +72,7 @@ function attach_members_to_project(base_url :: String, project_id :: Integer, us
     all_members = get_users(base_url, _csrf_token, version)
     all_roles = get_roles(base_url, _csrf_token, version)
 
+    headers = ["X-CSRFToken"=>_csrf_token]
     user_response = []
     for (username, rolename) in create_user_role_pairs(usernames, roles)
         member = [potential_member for potential_member in all_members if potential_member["username"] == username]
@@ -84,7 +85,7 @@ function attach_members_to_project(base_url :: String, project_id :: Integer, us
             "role"=>role["id"],
             "user"=>member["id"],
         ])
-        r = make_attach_user_request(url, JSON3.write(member_role_payload))
+        r = make_attach_user_request(url, headers, JSON3.write(member_role_payload))
         push!(user_response, JSON3.read(r.body))
     end
     return user_response
