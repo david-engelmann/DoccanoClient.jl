@@ -1,6 +1,7 @@
 include("DoccanoClient.jl")
 include("Projects.jl")
 include("utils/Filenames.jl")
+include("./models/Example.jl")
 
 function create_url_query(url :: String, url_parameters :: Dict)
     url = URI(url)
@@ -11,7 +12,7 @@ end
 function get_next_example_batch(example_url :: String, _csrf_token :: String)
     headers = ["X-CSRFToken"=>_csrf_token]
     r = HTTP.request("GET", example_url, headers; cookies = true)
-    return JSON3.read(String(r.body)) 
+    return JSON3.read(String(r.body))
 end
 
 function create_example_id_url(base_url :: String, example_id :: Integer, url_suffix :: Union{String, Nothing}=nothing)
@@ -20,7 +21,7 @@ function create_example_id_url(base_url :: String, example_id :: Integer, url_su
         return base_url * string(example_id) * raw"/" * url_suffix
     else
         return base_url * string(example_id)
-    end 
+    end
 end
 
 function create_example_upload_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
@@ -107,13 +108,13 @@ function create_example(base_url :: String, project_id :: Integer, _csrf_token :
     if annotations == nothing
         annotations = []
     end
-    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form, 
+    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form,
                 "accept" => "application/json"]
     url = create_project_id_url(base_url, "projects", project_id, version)
     example_payload = Dict(["text" => text,
                          "annotations" => annotations,
                          "annotation_approver" => annotation_approver])
-    r = make_create_example_request(url, headers, JSON3.write(example_payload))    
+    r = make_create_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
@@ -125,7 +126,7 @@ function update_example(base_url :: String, project_id :: Integer, example_id ::
     example_payload = Dict(["text" => text,
                          "annotations" => annotations,
                          "annotation_approver" => annotation_approver])
-    r = make_update_example_request(url, headers, JSON3.write(example_payload))    
+    r = make_update_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
@@ -161,7 +162,6 @@ function make_fp_process_request(url :: String, headers :: Vector{Pair{String, S
     elseif isa(file_io, IOBuffer)
         @assert file_name !== nothing
         return HTTP.post(url, headers, body=Dict("filepond"=>HTTP.Multipart(file_name, file_io)); cookies = true)
-        
     else
         return HTTP.post(url, headers, JSON3.write(file_io); cookies = true)
     end
@@ -207,13 +207,12 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
 
     upload_ids = String[]
     for file in files
-        print(file)
         file_io = open(file, "r")
         file_name = create_uploadable_file_name(file)
         file_dict = HTTP.Form(Dict(["filepond" => HTTP.Multipart(file_name, file_io)]))
         #file_dict = Dict(["filepond" => read(file_io, String)])
         #println(file_dict)
-        try    
+        try
             fp_process_request = make_fp_process_request(fp_process_url, headers, file_dict, file_name)
             upload_id = get_upload_id_from_fp_process_request(fp_process_request)
             push!(upload_ids, upload_id)
@@ -223,7 +222,7 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
                 make_fp_revert_request_with_upload_ids(fp_revert_url, revert_headers, upload_id)
             end
         end
-    end  
+    end
 
     final_upload_headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
@@ -236,7 +235,6 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
             "format" => format,
             "uploadIds" => upload_ids
             ])
-    println(upload_data)
     r = make_upload_file_request(url, final_upload_headers, JSON3.write(upload_data))
     return JSON3.read(r.body)
 end

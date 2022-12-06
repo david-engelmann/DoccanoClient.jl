@@ -25,7 +25,7 @@ end
     no_suffix_project_member_url = create_project_members_url(base_url, test_project_id, version)
     suffix_project_member_url = create_project_members_url(base_url, test_project_id, version, string(test_member_id))
 
-    test_no_suffix_project_member_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/members" else "$(base_url)/$(version)/members" end
+    test_no_suffix_project_member_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/members" else "$(base_url)/$(version)/projects/$(test_project_id)/members" end
     test_suffix_project_member_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/members/$(test_member_id)" else "$(base_url)/$(version)/projects/$(test_project_id)/members/$(test_member_id)" end
     @test no_suffix_project_member_url == test_no_suffix_project_member_url
     @test suffix_project_member_url == test_suffix_project_member_url

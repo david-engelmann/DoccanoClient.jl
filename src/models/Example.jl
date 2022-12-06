@@ -7,5 +7,5 @@ Base.@kwdef struct Example
     is_confirmed::Bool = false
     filename::String = ""
     upload_name::String = ""
-    score::Float = 100.0
+    score::Float64 = 100.0
 end

@@ -29,7 +29,7 @@ function create_project_id_url(base_url :: String, endpoint :: String, project_i
         return base_url * endpoint * raw"/" * string(project_id) * raw"/" * url_suffix
     else
         return base_url * endpoint * raw"/" * string(project_id)
-    end 
+    end
 end
 
 function create_project_url(base_url :: String, endpoint :: String, version :: String="v1")
