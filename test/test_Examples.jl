@@ -6,7 +6,7 @@ using Test
     test_project_id = 1
     version = "v1"
     sample_classification_file_name = "sample_classification_inputs.jsonl"
-    sample_classification_file_path = "assets"
+    sample_classification_file_path = "test/assets"
     upload_examples(base_url, test_project_id, csrf_token, sample_classification_file_name, sample_classification_file_path)
     @test isa(base_url, String)
 end
