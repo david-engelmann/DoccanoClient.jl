@@ -24,4 +24,12 @@ end
     example_upload_url = create_example_upload_url(base_url, test_project_id, version)
     test_example_upload_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/upload" else "$(base_url)/$(version)/projects/$(test_project_id)/upload" end
     @test example_upload_url == test_example_upload_url
+
+    fp_process_url = create_fp_process_url(base_url, version)
+    test_fp_process_url = if endswith(base_url, raw"/") "$(base_url)$(version)/fp/process/" elsee "$(base_url)/$(version)/fp/process/" end
+    @test fp_process_url == test_fp_process_url
+
+    fp_revert_url = create_fp_revert_url(base_url, version)
+    test_fp_revert_url = if endswith(base_url, raw"/") "$(base_url)$(version)/fp/revert/" else "$(base_url)/$(version)/fp/revert/" end
+    @test fp_revert_url == test_fp_revert_url
 end
