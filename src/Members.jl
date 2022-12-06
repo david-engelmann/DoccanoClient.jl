@@ -81,8 +81,8 @@ function attach_members_to_project(base_url :: String, project_id :: Integer, us
         role = role[1]
 
         member_role_payload = Dict([
-            "role": role["id"],
-            "user": member["id"],
+            "role"=>role["id"],
+            "user"=>member["id"],
         ])
         r = make_attach_user_request(url, JSON3.write(member_role_payload))
         push!(user_response, JSON3.read(r.body))
