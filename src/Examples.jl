@@ -20,7 +20,7 @@ function create_example_id_url(base_url :: String, example_id :: Integer, url_su
         return base_url * string(example_id) * raw"/" * url_suffix
     else
         return base_url * string(example_id)
-    end 
+    end
 end
 
 function create_example_upload_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
