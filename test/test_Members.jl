@@ -28,5 +28,5 @@ end
     test_no_suffix_project_member_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/members" else "$(base_url)/$(version)/members" end
     test_suffix_project_member_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/members/$(test_member_id)" else "$(base_url)/$(version)/projects/$(test_project_id)/members/$(test_member_id)" end
     @test no_suffix_project_member_url == test_no_suffix_project_member_url
-    @test suffix_project_member_url = test_suffix_project_member_url
+    @test suffix_project_member_url == test_suffix_project_member_url
 end
