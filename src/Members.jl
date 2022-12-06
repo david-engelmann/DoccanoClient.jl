@@ -24,7 +24,7 @@ function get_members(base_url :: String, project_id :: Integer, _csrf_token :: S
 end
 
 function get_member_detail(base_url :: String, project_id :: Integer, member_id :: Integer, _csrf_token :: String, version :: String="v1")
-    url = create_project_members_url(base_url, project_id, version, String(member_id))
+    url = create_project_members_url(base_url, project_id, version, string(member_id))
     headers = ["X-CSRFToken"=>_csrf_token]
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
