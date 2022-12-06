@@ -11,7 +11,7 @@ end
 function get_next_example_batch(example_url :: String, _csrf_token :: String)
     headers = ["X-CSRFToken"=>_csrf_token]
     r = HTTP.request("GET", example_url, headers; cookies = true)
-    return JSON3.read(String(r.body)) 
+    return JSON3.read(String(r.body))
 end
 
 function create_example_id_url(base_url :: String, example_id :: Integer, url_suffix :: Union{String, Nothing}=nothing)
@@ -107,13 +107,13 @@ function create_example(base_url :: String, project_id :: Integer, _csrf_token :
     if annotations == nothing
         annotations = []
     end
-    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form, 
+    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form,
                 "accept" => "application/json"]
     url = create_project_id_url(base_url, "projects", project_id, version)
     example_payload = Dict(["text" => text,
                          "annotations" => annotations,
                          "annotation_approver" => annotation_approver])
-    r = make_create_example_request(url, headers, JSON3.write(example_payload))    
+    r = make_create_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
@@ -125,7 +125,7 @@ function update_example(base_url :: String, project_id :: Integer, example_id ::
     example_payload = Dict(["text" => text,
                          "annotations" => annotations,
                          "annotation_approver" => annotation_approver])
-    r = make_update_example_request(url, headers, JSON3.write(example_payload))    
+    r = make_update_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
@@ -161,7 +161,6 @@ function make_fp_process_request(url :: String, headers :: Vector{Pair{String, S
     elseif isa(file_io, IOBuffer)
         @assert file_name !== nothing
         return HTTP.post(url, headers, body=Dict("filepond"=>HTTP.Multipart(file_name, file_io)); cookies = true)
-        
     else
         return HTTP.post(url, headers, JSON3.write(file_io); cookies = true)
     end
@@ -213,7 +212,7 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
         file_dict = HTTP.Form(Dict(["filepond" => HTTP.Multipart(file_name, file_io)]))
         #file_dict = Dict(["filepond" => read(file_io, String)])
         #println(file_dict)
-        try    
+        try
             fp_process_request = make_fp_process_request(fp_process_url, headers, file_dict, file_name)
             upload_id = get_upload_id_from_fp_process_request(fp_process_request)
             push!(upload_ids, upload_id)
