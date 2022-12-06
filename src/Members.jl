@@ -72,7 +72,8 @@ function attach_members_to_project(base_url :: String, project_id :: Integer, us
     all_members = get_users(base_url, _csrf_token, version)
     all_roles = get_roles(base_url, _csrf_token, version)
 
-    headers = ["X-CSRFToken"=>_csrf_token]
+    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form, 
+                "accept" => "application/json"]
     user_response = []
     for (username, rolename) in create_user_role_pairs(usernames, roles)
         member = [potential_member for potential_member in all_members if potential_member["username"] == username]
