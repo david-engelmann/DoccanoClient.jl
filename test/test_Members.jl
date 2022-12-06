@@ -23,7 +23,7 @@ end
     test_member_id = 1
     version = "v1"
     no_suffix_project_member_url = create_project_members_url(base_url, test_project_id, version)
-    suffix_project_member_url = create_project_members_url(base_url, test_project_id, version, test_member_id)
+    suffix_project_member_url = create_project_members_url(base_url, test_project_id, version, String(test_member_id))
 
     test_no_suffix_member_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/members" else "$(base_url)/$(version)/members" end
     test_suffix_project_member_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/members/{test_member_id}" else "$(base_url)/$(version)/projects/$(test_project_id)/members/{test_member_id}" end
