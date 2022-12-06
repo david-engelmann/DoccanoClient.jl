@@ -1,4 +1,5 @@
 #include("DoccanoClient.jl")
+include("./models/Project.jl")
 using HTTP
 
 #=
@@ -209,22 +210,22 @@ end
 function export_project(base_url :: String, project_id :: Integer, save_path:: String, _csrf_token :: String, file_format :: String="json", only_approved :: Bool=false, version :: String="v1")
     download_url = create_project_id_url(base_url, "projects", project_id, version, "download")
     file_format = lowercase(file_format)
-    
-    if file_format == "csv" 
-        accept_format = "text/csv" 
+
+    if file_format == "csv"
+        accept_format = "text/csv"
     else 
         accept_format = "application/$(file_format)"
     end
-    
+
     headers = ["X-CSRFToken"=>_csrf_token, # "Content-Type" => "application/json",
                "accept" => accept_format]
     status_headers = ["X-CSRFToken"=>_csrf_token]
     task_download_headers = ["X-CSRFToken"=>_csrf_token]
 
-    if file_format == "csv" 
-        json_final_format = "CSV" 
-    elseif file_format == "jsonl" 
-        json_final_format = "JSONL" 
+    if file_format == "csv"
+        json_final_format = "CSV"
+    elseif file_format == "jsonl"
+        json_final_format = "JSONL"
     else 
         json_final_format = "JSON"
     end
