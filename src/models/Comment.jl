@@ -1,8 +1,8 @@
 Base.@kwdef struct Comment
-    id::Union{Integer, nothing} = nothing
+    id::Union{Integer, Nothing} = nothing
     text::String
     example::Integer
-    user::Union{Integer, nothing} = nothing
-    username::Union{String, nothing} = nothing
-    created_at::Union{String, nothing} = nothing
+    user::Union{Integer, Nothing} = nothing
+    username::Union{String, Nothing} = nothing
+    created_at::Union{String, Nothing} = nothing
 end
