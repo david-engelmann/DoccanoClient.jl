@@ -1,0 +1,20 @@
+{"text":"can i still purchase tickets on site even with covid restrictions","label":["buy","ticket","covid","missing-crucial-concept"]}
+{"text":"can i change my visit date if i have covid","label":["change","covid","reservations"]}
+{"text":"good day seeking an exchange of game day tickets canceled due to covid-19 . can you assist ? ","label":["change","ticket","covid"]}
+{"text":"please assist me with covid app","label":["help","covid","missing-crucial-concept"]}
+{"text":"need to speak to someone about masks","label":["contact","facemask"]}
+{"text":"where is the security office located ?","label":["security","locate"]}
+{"text":"cancel a reservation due to covid","label":["reservations","covid","cancel"]}
+{"text":"hello . what is the cancelation policy due to the coronavirus ? ","label":["policies","covid","cancel"]}
+{"text":"how do i get my money back of i have covidd","label":["refund","covid"]}
+{"text":"i need to know if i was refunded for a covid cancelled event","label":["refund","covid","schedule_changes"]}
+{"text":"what is the refund policy in regards to covid ? ","label":["refund","policies","covid"]}
+{"text":"if so how do you reserve with covid","label":["reservations","covid"]}
+{"text":"do you accept reservations for the park due to reduced capacity","label":["reservations","capacity"]}
+{"text":"vaccine passports are a bad idea","label":["complain","covid_vaccine"]}
+{"text":"this is not helpful and unrelated to vaccine status","label":["covid_vaccine","complain"]}
+{"text":"i need to renew my membership .  it expired during covid close down . ","label":["missing-crucial-concept","covid"]}
+{"text":"do i need to have proof of a negative covid test ? ","label":["policies","covid_testing","proof"]}
+{"text":"was tonights game against buffalo postponed because of covid-19 ? ","label":["schedule_changes","covid"]}
+{"text":"how do you reserve parking in the north station ? its showing limited parking","label":["not-health-and-safety"]}
+{"text":"how do i get machine gun kelly tickets","label":["not-health-and-safety"]}

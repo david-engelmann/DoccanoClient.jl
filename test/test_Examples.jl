@@ -1,6 +1,15 @@
 include("../src/Examples.jl")
 using Test
 
+@testset "Examples - Upload Functions" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    sample_classification_file_name = "sample_classification_inputs.jsonl"
+    sample_classification_file_path = "test/assets"
+    @test isa(base_url, String)
+end
+
 @testset "Examples - Get Functions" begin
     base_url = ENV["DOCCANO_BASE_URL"]
     test_project_id = 1
