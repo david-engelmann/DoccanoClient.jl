@@ -10,9 +10,9 @@ using Test
     @info "Test adding Members to Project"
     project_attachment_results = attach_members_to_project(base_url, test_project_id, ["admin"], ["project_admin"], csrf_token, version)
     =#
-    @info "Project Attachment Results"
-    @info project_attachment_results
+    @info "Project Memeber Results"
     members = get_members(base_url, test_project_id, csrf_token, version)
+    @info members
     @test isempty(members) == false
 end
 
