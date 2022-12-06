@@ -3,7 +3,7 @@ using Test
 
 @testset "Members - Get Functions" begin
     base_url = ENV["DOCCANO_BASE_URL"]
-    test_project_id = 0
+    test_project_id = 1
     target_role_id = 1
     version = "v1"
     #=
@@ -19,7 +19,7 @@ end
 
 @testset "Members - Link Creation" begin
     base_url = ENV["DOCCANO_BASE_URL"]
-    test_project_id = 0
+    test_project_id = 1
     test_member_id = 1
     version = "v1"
     no_suffix_project_member_url = create_project_members_url(base_url, test_project_id, version)
