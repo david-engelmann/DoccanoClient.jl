@@ -207,7 +207,6 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
 
     upload_ids = String[]
     for file in files
-        print(file)
         file_io = open(file, "r")
         file_name = create_uploadable_file_name(file)
         file_dict = HTTP.Form(Dict(["filepond" => HTTP.Multipart(file_name, file_io)]))
@@ -223,7 +222,7 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
                 make_fp_revert_request_with_upload_ids(fp_revert_url, revert_headers, upload_id)
             end
         end
-    end  
+    end
 
     final_upload_headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
@@ -236,7 +235,6 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
             "format" => format,
             "uploadIds" => upload_ids
             ])
-    println(upload_data)
     r = make_upload_file_request(url, final_upload_headers, JSON3.write(upload_data))
     return JSON3.read(r.body)
 end
