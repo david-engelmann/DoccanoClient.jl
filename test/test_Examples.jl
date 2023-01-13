@@ -15,6 +15,8 @@ end
     base_url = ENV["DOCCANO_BASE_URL"]
     test_project_id = 1
     version = "v1"
+    examples = get_examples(base_url, test_project_id, csrf_token)
+    @info examples
     @test isa(base_url, String)
 end
 
