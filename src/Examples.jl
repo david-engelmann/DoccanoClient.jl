@@ -223,6 +223,7 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
             end
         end
     end
+    @info "Made it past upload ids"
 
     final_upload_headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
