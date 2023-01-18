@@ -210,10 +210,12 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
         file_io = open(file, "r")
         file_name = create_uploadable_file_name(file)
         file_dict = HTTP.Form(Dict(["filepond" => HTTP.Multipart(file_name, file_io)]))
+        @info file_dict
         #file_dict = Dict(["filepond" => read(file_io, String)])
         #println(file_dict)
         try
             fp_process_request = make_fp_process_request(fp_process_url, headers, file_dict, file_name)
+            @info fp_process_request
             upload_id = get_upload_id_from_fp_process_request(fp_process_request)
             push!(upload_ids, upload_id)
         catch e
