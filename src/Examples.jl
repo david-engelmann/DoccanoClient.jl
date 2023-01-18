@@ -236,6 +236,7 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
             "format" => format,
             "uploadIds" => upload_ids
             ])
+    @info upload_data
     r = make_upload_file_request(url, final_upload_headers, JSON3.write(upload_data))
     return JSON3.read(r.body)
 end
