@@ -18,7 +18,7 @@ end
     examples = get_examples(base_url, test_project_id, csrf_token)
     @info examples
     @info typeof(examples)
-    test_example_id = first(examples)["id"]
+    test_example_id = first(examples["results"])["id"]
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
     @info examples
     @info test_example_id
