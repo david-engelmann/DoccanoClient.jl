@@ -16,8 +16,23 @@ end
     test_project_id = 1
     version = "v1"
     examples = get_examples(base_url, test_project_id, csrf_token)
+    test_example_id = examples[1]["id"]
+    test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
     @info examples
+    @info test_example_id
+    @info test_example_detail
+    @test length(examples) == 5
     @test isa(base_url, String)
+end
+
+@testset "Examples - Update Functions" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    examples = get_examples(base_url, test_project_id, csrf_token)
+    test_example_id = examples[1]["id"]
+    @test isa(base_url, String)
+
 end
 
 @testset "Examples - Link Creation" begin
