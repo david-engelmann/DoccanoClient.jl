@@ -140,7 +140,8 @@ function update_example_elements(base_url :: String, project_id :: Integer, exam
     if meta == nothing
         meta = example_detail["meta"]
     end
-    
+    @info typeof(meta)
+
     @info "Made it past meta == nothing"
     if annotation_approver == nothing
         annotation_approver = example_detail["annotation_approver"]
