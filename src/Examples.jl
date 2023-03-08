@@ -113,6 +113,8 @@ function create_example(base_url :: String, project_id :: Integer, _csrf_token :
     url = create_project_id_url(base_url, "projects", project_id, version)
     example_payload = Dict(["text" => text,
                          "meta" => meta])
+    @info typeof(JSON3.write(example_payload))
+    @info JSON3.write(example_payload))
     r = make_create_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
@@ -125,7 +127,8 @@ function update_example(base_url :: String, project_id :: Integer, example_id ::
     example_payload = Dict(["text" => text,
                          "meta" => meta])
     @info "example_payload"
-    @info example_payload
+    @info typeof(JSON3.write(example_payload))
+    @info JSON3.write(example_payload))
     r = make_update_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
