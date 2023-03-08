@@ -136,12 +136,16 @@ function update_example_elements(base_url :: String, project_id :: Integer, exam
     if text == nothing
         text = example_detail["text"]
     end
+    @info "Made it past text == nothing"
     if meta == nothing
         meta = example_detail["meta"]
     end
+    
+    @info "Made it past meta == nothing"
     if annotation_approver == nothing
         annotation_approver = example_detail["annotation_approver"]
     end
+    @info "Made it past annotation_approver == nothing"
     return update_example(base_url, project_id, example_id, _csrf_token, text, meta, annotation_approver, version)
 end
 
