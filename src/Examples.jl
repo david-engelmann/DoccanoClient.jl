@@ -130,7 +130,7 @@ function update_example(base_url :: String, project_id :: Integer, example_id ::
     return JSON3.read(r.body)
 end
 
-function update_example_elements(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String; text :: Union{String, Nothing}=nothing, annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
+function update_example_elements(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: Union{String, Nothing}=nothing, annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
     example_detail = get_example_detail(base_url, project_id, example_id, _csrf_token, version)
     if text == nothing
         text = example_detail["text"]
