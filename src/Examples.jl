@@ -104,45 +104,45 @@ function make_delete_example_request(url :: String, headers:: Vector{Pair{String
     return HTTP.delete(url, headers; cookies = true)
 end
 
-function create_example(base_url :: String, project_id :: Integer, _csrf_token :: String, text :: String,  annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
-    if annotations == nothing
-        annotations = []
+function create_example(base_url :: String, project_id :: Integer, _csrf_token :: String, text :: String,  meta :: Union{Dict, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
+    if meta == nothing
+        meta = Dict()
     end
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form,
                 "accept" => "application/json"]
     url = create_project_id_url(base_url, "projects", project_id, version)
     example_payload = Dict(["text" => text,
-                         "annotations" => annotations,
+                         "meta" => meta,
                          "annotation_approver" => annotation_approver])
     r = make_create_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
-function update_example(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: String,  annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
+function update_example(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: String,  meta :: Union{Dict, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
     url = create_project_id_url(base_url, "projects", project_id, version)
     url = create_example_id_url(url, example_id)
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
     example_payload = Dict(["text" => text,
-                         "annotations" => annotations,
+                         "meta" => meta,
                          "annotation_approver" => annotation_approver])
     r = make_update_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
-function update_example_elements(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: Union{String, Nothing}=nothing, annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
+function update_example_elements(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: Union{String, Nothing}=nothing, meta :: Union{Dict, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
     example_detail = get_example_detail(base_url, project_id, example_id, _csrf_token, version)
     @info example_detail
     if text == nothing
         text = example_detail["text"]
     end
-    if annotations == nothing
-        annotations = []
+    if meta == nothing
+        meta = example_detail["meta"]
     end
     if annotation_approver == nothing
         annotation_approver = example_detail["annotation_approver"]
     end
-    return update_example(base_url, project_id, example_id, _csrf_token, text, annotations, annotation_approver, version)
+    return update_example(base_url, project_id, example_id, _csrf_token, text, meta, annotation_approver, version)
 end
 
 function make_upload_file_request(url :: String, headers:: Vector{Pair{String, String}}, user_body :: Union{HTTP.Form, String})
