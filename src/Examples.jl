@@ -121,20 +121,18 @@ end
 function update_example(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: String,  annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
     url = create_project_id_url(base_url, "projects", project_id, version)
     url = create_example_id_url(url, example_id)
-    @info url
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
     example_payload = Dict(["text" => text,
                          "annotations" => annotations,
                          "annotation_approver" => annotation_approver])
-    @info headers
-    @info example_payload
     r = make_update_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
 function update_example_elements(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: Union{String, Nothing}=nothing, annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
     example_detail = get_example_detail(base_url, project_id, example_id, _csrf_token, version)
+    @info example_detail
     if text == nothing
         text = example_detail["text"]
     end
