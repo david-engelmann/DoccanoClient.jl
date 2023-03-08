@@ -138,7 +138,7 @@ function update_example_elements(base_url :: String, project_id :: Integer, exam
     end
     @info "Made it past text == nothing"
     if meta == nothing
-        meta = example_detail["meta"]
+        meta = copy(example_detail["meta"])
     end
     @info typeof(meta)
 
