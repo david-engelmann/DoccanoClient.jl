@@ -139,6 +139,8 @@ function update_example_elements(base_url :: String, project_id :: Integer, exam
         meta = copy(example_detail["meta"])
     end
     @info typeof(meta)
+    @info "see meta"
+    @info meta
 
     @info "Made it past meta == nothing"
     return update_example(base_url, project_id, example_id, _csrf_token, text, meta, version)
