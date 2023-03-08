@@ -137,7 +137,7 @@ function update_example_elements(base_url :: String, project_id :: Integer, exam
         text = example_detail["text"]
     end
     if annotations == nothing
-        annotations = example_detail["annotations"]
+        annotations = []
     end
     if annotation_approver == nothing
         annotation_approver = example_detail["annotation_approver"]
