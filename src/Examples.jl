@@ -124,6 +124,8 @@ function update_example(base_url :: String, project_id :: Integer, example_id ::
                "accept" => "application/json"]
     example_payload = Dict(["text" => text,
                          "meta" => meta])
+    @info "example_payload"
+    @info example_payload
     r = make_update_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
