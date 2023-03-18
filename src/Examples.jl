@@ -97,7 +97,7 @@ function make_create_example_request(url :: String, headers:: Vector{Pair{String
 end
 
 function make_update_example_request(url :: String, headers:: Vector{Pair{String, String}}, user_body :: Union{HTTP.Form, String})
-    return HTTP.patch(url, headers, body=user_body; cookies = true)
+    return HTTP.put(url, headers, body=user_body; cookies = true)
 end
 
 function make_delete_example_request(url :: String, headers:: Vector{Pair{String, String}})
