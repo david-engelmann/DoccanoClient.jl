@@ -39,14 +39,14 @@ end
 
     update_response = update_example_elements(base_url, test_project_id, test_example_id, csrf_token, text_data)
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
-    @test endswith(test_example_detail, "!!!")
+    @test endswith(test_example_detail["text"], "!!!")
 
     @info "Third Post Update Test"
     text_data = test_example_detail["text"] * "???"
     @info text_data
     update_response = update_example_elements(base_url, test_project_id, test_example_id, csrf_token, text_data)
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
-    @test endswith(test_example_detail, "???")
+    @test endswith(test_example_detail["text"], "???")
 end
 
 @testset "Examples - Link Creation" begin
