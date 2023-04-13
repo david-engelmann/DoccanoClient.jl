@@ -60,7 +60,7 @@ function get_examples(base_url :: String, project_id :: Integer, _csrf_token :: 
 end
 
 function get_example_detail(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version, "examples")
+    url = create_project_id_url(base_url, "projects", project_id, version)
     url = create_example_id_url(url, example_id)
     println(url)
     headers = ["X-CSRFToken"=>_csrf_token]
