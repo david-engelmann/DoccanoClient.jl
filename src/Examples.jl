@@ -54,7 +54,11 @@ function create_fp_revert_url(base_url :: String, version :: String="v1")
 end
 
 function list_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
-    return get_examples(base_url, project_id, _csrf_token, url_parameters, version)
+    if isnothing(url_parameters)
+        return get_all_examples(base_url, project_id, _csrf_token, version)
+    else
+        return get_examples(base_url, project_id, _csrf_token, url_parameters, version)
+    end
 end
 
 function get_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
