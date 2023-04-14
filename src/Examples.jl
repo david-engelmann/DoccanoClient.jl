@@ -53,6 +53,10 @@ function create_fp_revert_url(base_url :: String, version :: String="v1")
     return base_url * version * raw"/" * "fp/revert/"
 end
 
+function list_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
+    return get_examples(base_url, project_id, _csrf_token, url_parameters, version)
+end
+
 function get_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
     url = create_project_id_url(base_url, project_id, version)
     url = create_examples_url(url)
@@ -100,6 +104,12 @@ function get_all_examples(base_url :: String, project_id :: Integer, _csrf_token
         end
     end
     return example_arry
+end
+
+function get_example_ids(base_url:: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
+    examples = get_examples(base_url, project_id, _csrf_token, url_parameters, version)
+    example_ids = [example for example in examples]
+    @info example_ids
 end
 
 function make_count_examples_request(url :: String, headers :: Vector{Pair{String, String}})
@@ -309,12 +319,25 @@ function delete_examples(base_url :: String, project_ids :: Union{Vector{Integer
     end
 end
 
+function delete_all_examples(base_url :: String, project_ids:: Union{Vector{Integer, Integer}, _csrf_token :: String, version :: String="v1")
+    if isa(project_ids, Vector)
+        for project_id in project_ids
+            example_ids = []
+            project_ids = []
+        end
+
+    else
+        # Integer
+        project_id = project_ids
+    end
+end
+
 function count_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
     url = create_project_id_url(base_url, project_id, version)
     url = create_examples_url(url)
     headers = ["X-CSRFToken"=>_csrf_token]
     r = make_count_examples_request(url, headers)
-    return JSON3.read(r.body)
+    return JSON3.read(r.body)["count"]
 end
 
 #sample_classification_file_name = "sample_classification_inputs.jsonl"

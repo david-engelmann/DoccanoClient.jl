@@ -15,11 +15,21 @@ end
     base_url = ENV["DOCCANO_BASE_URL"]
     test_project_id = 1
     version = "v1"
-    examples = get_examples(base_url, test_project_id, csrf_token)
+    examples = get_examples(base_url, test_project_id, csrf_token, nothing, version)
     test_example_id = first(examples["results"])["id"]
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
     @test length(examples["results"]) == 5
     @test isa(test_example_detail["text"], String)
+end
+
+@testset "Examples - Example Id Functions" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    example_ids = get_example_ids(base_url, test_project_id, csrf_token, nothing, version)
+    @info example_ids
+    @test false
+
 end
 
 @testset "Examples - Update Functions" begin
@@ -74,8 +84,6 @@ end
     base_url = ENV["DOCCANO_BASE_URL"]
     test_project_id = 1
     version = "v1"
-    number_of_examples_response = count_examples(base_url, test_project_id, csrf_token)
-    @info number_of_examples_response
-    number_of_examples = number_of_examples_response["count"]
+    number_of_examples = count_examples(base_url, test_project_id, csrf_token)
     @test number_of_examples > 0
 end
