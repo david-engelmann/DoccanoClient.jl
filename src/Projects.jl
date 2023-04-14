@@ -14,8 +14,6 @@ end
 
 function parse_non_string_for_form(attr)
     a = IOBuffer()
-    println("Target Attribute")
-    println(typeof(attr[2]))
     if isa(attr[2], Bool)
         return attr[1] => parseattr(attr[2])
     end
@@ -252,7 +250,6 @@ function export_project(base_url :: String, project_id :: Integer, save_path:: S
     result = make_task_id_download_request(task_id_download_url, task_download_headers)
 
     #Save File
-    println(JSON3.read(result.body))
 end
 
 #=

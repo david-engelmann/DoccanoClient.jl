@@ -14,7 +14,6 @@ end
         username = ENV["DOCCANO_USERNAME"]
         password = ENV["DOCCANO_PASSWORD"]
         base_url = ENV["DOCCANO_BASE_URL"]
-        println(base_url)
     catch err
         username = "admin"
         password = "password"
