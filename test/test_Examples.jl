@@ -74,6 +74,8 @@ end
     base_url = ENV["DOCCANO_BASE_URL"]
     test_project_id = 1
     version = "v1"
-    number_of_examples = count_examples(base_url, test_project_id, csrf_token)
+    number_of_examples_response = count_examples(base_url, test_project_id, csrf_token)
+    @info number_of_examples_response
+    number_of_examples = number_of_examples_response["count"]
     @test number_of_examples > 0
 end
