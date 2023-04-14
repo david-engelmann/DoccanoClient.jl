@@ -1,14 +1,10 @@
 include("../models/Auth.jl")
 
 function authorize(base_url :: String, username :: String, password :: String, version = "v1")
-    @info "Retrieve CSRF Token"
     if ! @isdefined csrf_token
-        @info "Didn't Find CSRF Token"
         global csrf_token = get_csrf_token(base_url)
     end
-    @info "Login with CSRF Token"
     csrf_token = login(base_url, username, password, csrf_token, version)
-    @info "Load Auth"
     return Auth(csrf_token, username, password)
 end
 
@@ -27,7 +23,6 @@ end
 function get_csrf_token(base_url :: String)
     base_url = if endswith(base_url, "/") base_url else base_url * "/" end
     url = base_url * "admin/login/"
-    println(url)
     HTTP.open("GET", url, cookies = true) do io
         while !eof(io)
             readavailable(io)

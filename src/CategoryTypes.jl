@@ -3,7 +3,7 @@ include("Projects.jl")
 include("utils/Filenames.jl")
 
 function create_category_type_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
-    base_url = create_project_id_url(base_url, "projects", project_id, version)
+    base_url = create_project_id_url(base_url, project_id, version)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     if url_suffix !== nothing
         return base_url * "category-types" * raw"/" * url_suffix
@@ -23,7 +23,7 @@ end
 
 
 function create_category_type_upload_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
-    base_url = create_project_id_url(base_url, "projects", project_id, version)
+    base_url = create_project_id_url(base_url, project_id, version)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     if url_suffix !== nothing
         return base_url * "category-types-upload" * raw"/" * url_suffix
@@ -47,7 +47,6 @@ end
 function get_category_types(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
     url = create_category_type_url(base_url, project_id, version)
     headers = ["X-CSRFToken"=>_csrf_token]
-    println(url)
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
             global category_types = JSON3.read(String(read(io)))

@@ -1,6 +1,7 @@
 include("DoccanoClient.jl")
 include("Projects.jl")
 include("utils/Filenames.jl")
+include("./models/Example.jl")
 
 function create_url_query(url :: String, url_parameters :: Dict)
     url = URI(url)
@@ -11,20 +12,29 @@ end
 function get_next_example_batch(example_url :: String, _csrf_token :: String)
     headers = ["X-CSRFToken"=>_csrf_token]
     r = HTTP.request("GET", example_url, headers; cookies = true)
-    return JSON3.read(String(r.body)) 
+    return JSON3.read(String(r.body))
 end
 
 function create_example_id_url(base_url :: String, example_id :: Integer, url_suffix :: Union{String, Nothing}=nothing)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     if url_suffix !== nothing
-        return base_url * string(example_id) * raw"/" * url_suffix
+        return base_url * "examples" *  raw"/" * string(example_id) * raw"/" * url_suffix
     else
-        return base_url * string(example_id)
-    end 
+        return base_url * "examples" *  raw"/" * string(example_id)
+    end
+end
+
+function create_examples_url(base_url :: String, url_suffix :: Union{String, Nothing}=nothing)
+    base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
+    if url_suffix !== nothing
+        return base_url * "examples" *  raw"/" * url_suffix
+    else
+        return base_url * "examples"
+    end
 end
 
 function create_example_upload_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
-    base_url = create_project_id_url(base_url, "projects", project_id, version)
+    base_url = create_project_id_url(base_url, project_id, version)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     if url_suffix !== nothing
         return base_url * "upload" * raw"/" * url_suffix
@@ -43,8 +53,17 @@ function create_fp_revert_url(base_url :: String, version :: String="v1")
     return base_url * version * raw"/" * "fp/revert/"
 end
 
+function list_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
+    if isnothing(url_parameters)
+        return get_all_examples(base_url, project_id, _csrf_token, version)
+    else
+        return get_examples(base_url, project_id, _csrf_token, url_parameters, version)
+    end
+end
+
 function get_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version, "examples")
+    url = create_project_id_url(base_url, project_id, version)
+    url = create_examples_url(url)
     if url_parameters !== nothing
         url = create_url_query(url, url_parameters)
     end
@@ -59,9 +78,8 @@ function get_examples(base_url :: String, project_id :: Integer, _csrf_token :: 
 end
 
 function get_example_detail(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version, "examples")
+    url = create_project_id_url(base_url, project_id, version)
     url = create_example_id_url(url, example_id)
-    println(url)
     headers = ["X-CSRFToken"=>_csrf_token]
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
@@ -91,56 +109,65 @@ function get_all_examples(base_url :: String, project_id :: Integer, _csrf_token
     return example_arry
 end
 
+function get_example_ids(base_url:: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
+    if isnothing(url_parameters)
+        examples = get_all_examples(base_url, project_id, _csrf_token, version)
+    else
+        examples = get_examples(base_url, project_id, _csrf_token, url_parameters, version)
+    end
+    example_ids = [example["id"] for example in examples]
+    return example_ids
+end
+
+function make_count_examples_request(url :: String, headers :: Vector{Pair{String, String}})
+    return HTTP.get(url, headers; cookies = true)
+end
+
 function make_create_example_request(url :: String, headers:: Vector{Pair{String, String}}, user_body :: Union{HTTP.Form, String})
     return HTTP.post(url, headers, body=user_body; cookies = true)
 end
 
 function make_update_example_request(url :: String, headers:: Vector{Pair{String, String}}, user_body :: Union{HTTP.Form, String})
-    return HTTP.patch(url, headers, body=user_body; cookies = true)
+    return HTTP.put(url, headers, body=user_body; cookies = true)
 end
 
 function make_delete_example_request(url :: String, headers:: Vector{Pair{String, String}})
     return HTTP.delete(url, headers; cookies = true)
 end
 
-function create_example(base_url :: String, project_id :: Integer, _csrf_token :: String, text :: String,  annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
-    if annotations == nothing
-        annotations = []
+function create_example(base_url :: String, project_id :: Integer, _csrf_token :: String, text :: String,  meta :: Union{Dict, Nothing}=nothing, version :: String="v1")
+    if meta == nothing
+        meta = Dict()
     end
-    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form, 
+    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form,
                 "accept" => "application/json"]
-    url = create_project_id_url(base_url, "projects", project_id, version)
+    url = create_project_id_url(base_url, project_id, version)
     example_payload = Dict(["text" => text,
-                         "annotations" => annotations,
-                         "annotation_approver" => annotation_approver])
-    r = make_create_example_request(url, headers, JSON3.write(example_payload))    
+                         "meta" => meta])
+    r = make_create_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
-function update_example(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: String,  annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version)
+function update_example(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: String,  meta :: Union{Dict, Nothing}=nothing, version :: String="v1")
+    url = create_project_id_url(base_url, project_id, version)
     url = create_example_id_url(url, example_id)
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
     example_payload = Dict(["text" => text,
-                         "annotations" => annotations,
-                         "annotation_approver" => annotation_approver])
-    r = make_update_example_request(url, headers, JSON3.write(example_payload))    
+                         "meta" => meta])
+    r = make_update_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
-function update_example_elements(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String; text :: Union{String, Nothing}=nothing, annotations :: Union{Vector, Nothing}=nothing, annotation_approver :: Union{String, Nothing}=nothing, version :: String="v1")
+function update_example_elements(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: Union{String, Nothing}=nothing, meta :: Union{Dict, Nothing}=nothing, version :: String="v1")
     example_detail = get_example_detail(base_url, project_id, example_id, _csrf_token, version)
     if text == nothing
         text = example_detail["text"]
     end
-    if annotations == nothing
-        annotations = example_detail["annotations"]
+    if meta == nothing
+        meta = copy(example_detail["meta"])
     end
-    if annotation_approver == nothing
-        annotation_approver = example_detail["annotation_approver"]
-    end
-    return update_example(base_url, project_id, example_id, _csrf_token, text, annotations, annotation_approver, version)
+    return update_example(base_url, project_id, example_id, _csrf_token, text, meta, version)
 end
 
 function make_upload_file_request(url :: String, headers:: Vector{Pair{String, String}}, user_body :: Union{HTTP.Form, String})
@@ -161,7 +188,6 @@ function make_fp_process_request(url :: String, headers :: Vector{Pair{String, S
     elseif isa(file_io, IOBuffer)
         @assert file_name !== nothing
         return HTTP.post(url, headers, body=Dict("filepond"=>HTTP.Multipart(file_name, file_io)); cookies = true)
-        
     else
         return HTTP.post(url, headers, JSON3.write(file_io); cookies = true)
     end
@@ -207,13 +233,10 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
 
     upload_ids = String[]
     for file in files
-        print(file)
         file_io = open(file, "r")
         file_name = create_uploadable_file_name(file)
         file_dict = HTTP.Form(Dict(["filepond" => HTTP.Multipart(file_name, file_io)]))
-        #file_dict = Dict(["filepond" => read(file_io, String)])
-        #println(file_dict)
-        try    
+        try
             fp_process_request = make_fp_process_request(fp_process_url, headers, file_dict, file_name)
             upload_id = get_upload_id_from_fp_process_request(fp_process_request)
             push!(upload_ids, upload_id)
@@ -223,7 +246,8 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
                 make_fp_revert_request_with_upload_ids(fp_revert_url, revert_headers, upload_id)
             end
         end
-    end  
+    end
+    task_name = get_project_detail(base_url, project_id, _csrf_token, "v1")["project_type"]
 
     final_upload_headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
@@ -234,9 +258,9 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
             "delimiter" => delimiter,
             "encoding" => encoding,
             "format" => format,
+            "task" => task_name,
             "uploadIds" => upload_ids
             ])
-    println(upload_data)
     r = make_upload_file_request(url, final_upload_headers, JSON3.write(upload_data))
     return JSON3.read(r.body)
 end
@@ -281,6 +305,31 @@ function delete_examples(base_url :: String, project_ids :: Union{Vector{Integer
     for (project_id, example_id) in create_project_example_pairs(project_ids, example_ids)
         delete_example(base_url, project_id, example_id, _csrf_token, version)
     end
+end
+
+function delete_all_examples(base_url :: String, project_ids:: Union{Vector{Integer}, Integer}, _csrf_token :: String, version :: String="v1")
+    if isa(project_ids, Vector)
+        for project_id in project_ids
+            example_ids = get_example_ids(base_url, project_id, _csrf_token, nothing, version)
+            project_ids = 1:length(example_ids) .|>_->project_id
+            delete_examples(base_url, project_ids, example_ids, _csrf_token, version)
+        end
+
+    else
+        # Integer
+        project_id = project_ids
+        example_ids = get_example_ids(base_url, project_id, _csrf_token, nothing, version)
+        project_ids = 1:length(example_ids) .|>_->project_id
+        delete_examples(base_url, project_ids, example_ids, _csrf_token, version)
+    end
+end
+
+function count_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
+    url = create_project_id_url(base_url, project_id, version)
+    url = create_examples_url(url)
+    headers = ["X-CSRFToken"=>_csrf_token]
+    r = make_count_examples_request(url, headers)
+    return JSON3.read(r.body)["count"]
 end
 
 #sample_classification_file_name = "sample_classification_inputs.jsonl"

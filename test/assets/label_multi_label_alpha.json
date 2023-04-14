@@ -1,0 +1,233 @@
+[
+    {
+      "text": "availability",
+      "prefixKey": null,
+      "suffixKey": "a",
+      "backgroundColor": "#FEC7BE",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "buy",
+      "prefixKey": null,
+      "suffixKey": "b",
+      "backgroundColor": "#56FDDB",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "cancel",
+      "prefixKey": null,
+      "suffixKey": "i",
+      "backgroundColor": "#73D8FF",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "capacity",
+      "prefixKey": null,
+      "suffixKey": "c",
+      "backgroundColor": "#08A0DF",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "change",
+      "prefixKey": null,
+      "suffixKey": "0",
+      "backgroundColor": "#4B4EDB",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "complain",
+      "prefixKey": null,
+      "suffixKey": "1",
+      "backgroundColor": "#B4E88E",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "contact",
+      "prefixKey": null,
+      "suffixKey": "2",
+      "backgroundColor": "#314EF0",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "covid",
+      "prefixKey": null,
+      "suffixKey": "3",
+      "backgroundColor": "#957E54",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "covid_testing",
+      "prefixKey": null,
+      "suffixKey": "4",
+      "backgroundColor": "#DC5F9E",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "covid_vaccine",
+      "prefixKey": null,
+      "suffixKey": "5",
+      "backgroundColor": "#67F0A2",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "dining",
+      "prefixKey": null,
+      "suffixKey": "d",
+      "backgroundColor": "#39B39E",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "emergency",
+      "prefixKey": null,
+      "suffixKey": "e",
+      "backgroundColor": "#9D425B",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "facemask",
+      "prefixKey": null,
+      "suffixKey": "f",
+      "backgroundColor": "#DC4E86",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "first_aid",
+      "prefixKey": null,
+      "suffixKey": "6",
+      "backgroundColor": "#845FAD",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "hand_sanitizer",
+      "prefixKey": null,
+      "suffixKey": "7",
+      "backgroundColor": "#AF71D1",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "health_screening",
+      "prefixKey": null,
+      "suffixKey": "q",
+      "backgroundColor": "#73D8FF",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "help",
+      "prefixKey": null,
+      "suffixKey": "h",
+      "backgroundColor": "#196887",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "kids",
+      "prefixKey": null,
+      "suffixKey": "k",
+      "backgroundColor": "#4E8B26",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "locate",
+      "prefixKey": null,
+      "suffixKey": "l",
+      "backgroundColor": "#0A9B9F",
+      "textColor": "#ffffff"
+    }, 
+    {
+      "text": "policies",
+      "prefixKey": null,
+      "suffixKey": "p",
+      "backgroundColor": "#E7714C",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "proof",
+      "prefixKey": null,
+      "suffixKey": "o",
+      "backgroundColor": "#FCDC00",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "refund",
+      "prefixKey": null,
+      "suffixKey": "r",
+      "backgroundColor": "#B5B3EB",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "reservations",
+      "prefixKey": null,
+      "suffixKey": "8",
+      "backgroundColor": "#A8D52B",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "safety_measures",
+      "prefixKey": null,
+      "suffixKey": "9",
+      "backgroundColor": "#49AF88",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "schedule_changes",
+      "prefixKey": null,
+      "suffixKey": "x",
+      "backgroundColor": "#21AEAB",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "security",
+      "prefixKey": null,
+      "suffixKey": "s",
+      "backgroundColor": "#F294C6",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "social_distancing",
+      "prefixKey": null,
+      "suffixKey": "z",
+      "backgroundColor": "#7C24A3",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "staff",
+      "prefixKey": null,
+      "suffixKey": "u",
+      "backgroundColor": "#5DB314",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "threat",
+      "prefixKey": null,
+      "suffixKey": "y",
+      "backgroundColor": "#40560A",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "ticket",
+      "prefixKey": null,
+      "suffixKey": "t",
+      "backgroundColor": "#04F28E",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "travel-restrictions",
+      "prefixKey": null,
+      "suffixKey": "v",
+      "backgroundColor": "#F7DAC7",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "missing-crucial-concept",
+      "prefixKey": null,
+      "suffixKey": "m",
+      "backgroundColor": "#FA28FF",
+      "textColor": "#ffffff"
+    },
+    {
+      "text": "not-health-and-safety",
+      "prefixKey": null,
+      "suffixKey": "n",
+      "backgroundColor": "#9F0500",
+      "textColor": "#ffffff"
+    }
+  ]

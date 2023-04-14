@@ -1,7 +1,7 @@
 Base.@kwdef struct Label
     id::Union{Integer, Nothing}
     example::Integer
-    prob::Float = 0.0
+    prob::Float64 = 0.0
     manual::Bool = false
     user::Union{Integer, Nothing} = nothing
 end
@@ -23,15 +23,15 @@ struct Relation <: Label
 end
 
 struct BoundingBox <: Label
-    x::Float
-    y::Float
-    width::Float
-    height::Float
+    x::Float64
+    y::Float64
+    width::Float64
+    height::Float64
     label::Integer
 end
 
 struct Segment <: Label
-    points::Array{Float}
+    points::Array{Float64}
     label::Integer
 end
 

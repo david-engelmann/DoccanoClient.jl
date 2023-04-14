@@ -1,0 +1,86 @@
+include("../src/Examples.jl")
+using Test
+
+@testset "Examples - Upload Functions" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    sample_classification_file_name = "sample_classification_inputs.jsonl"
+    sample_classification_file_path = "test/assets"
+    upload_examples(base_url, test_project_id, csrf_token, sample_classification_file_name, sample_classification_file_path)
+    @test isa(base_url, String)
+end
+
+@testset "Examples - Get Functions" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    examples = get_examples(base_url, test_project_id, csrf_token, nothing, version)
+    test_example_id = first(examples["results"])["id"]
+    test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
+    @test length(examples["results"]) == 5
+    @test isa(test_example_detail["text"], String)
+end
+
+@testset "Examples - Example Id Functions" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    example_ids = get_example_ids(base_url, test_project_id, csrf_token, nothing, version)
+    @test length(example_ids) == 20
+    @test example_ids == collect(1:20)
+
+end
+
+@testset "Examples - Update Functions" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    examples = get_examples(base_url, test_project_id, csrf_token)
+    test_example_id = first(examples["results"])["id"]
+    test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
+
+    text_data = test_example_detail["text"] * "!!!"
+    update_response = update_example_elements(base_url, test_project_id, test_example_id, csrf_token, text_data)
+    test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
+    @test endswith(test_example_detail["text"], "!!!")
+
+    text_data = test_example_detail["text"] * "???"
+    update_response = update_example_elements(base_url, test_project_id, test_example_id, csrf_token, text_data)
+    test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
+    @test endswith(test_example_detail["text"], "???")
+end
+
+@testset "Examples - Link Creation" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    test_example_id = 1
+    project_url = create_project_id_url(base_url, test_project_id, version)
+    test_project_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)" else "$(base_url)/$(version)/projects" end
+    @test project_url == test_project_url
+
+    example_url = create_example_id_url(project_url, test_example_id)
+    test_example_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/examples/$(test_example_id)" else "$(base_url)/$(version)/projects/$(test_project_id)/examples/$(test_example_id)" end
+    @test example_url == test_example_url
+
+    example_upload_url = create_example_upload_url(base_url, test_project_id, version)
+    test_example_upload_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/upload" else "$(base_url)/$(version)/projects/$(test_project_id)/upload" end
+    @test example_upload_url == test_example_upload_url
+
+    fp_process_url = create_fp_process_url(base_url, version)
+    test_fp_process_url = if endswith(base_url, raw"/") "$(base_url)$(version)/fp/process/" else "$(base_url)/$(version)/fp/process/" end
+    @test fp_process_url == test_fp_process_url
+
+    fp_revert_url = create_fp_revert_url(base_url, version)
+    test_fp_revert_url = if endswith(base_url, raw"/") "$(base_url)$(version)/fp/revert/" else "$(base_url)/$(version)/fp/revert/" end
+    @test fp_revert_url == test_fp_revert_url
+end
+
+@testset "Examples - Count Examples" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    number_of_examples = count_examples(base_url, test_project_id, csrf_token)
+    @test number_of_examples > 0
+end
