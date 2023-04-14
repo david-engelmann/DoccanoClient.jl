@@ -107,9 +107,9 @@ function get_all_examples(base_url :: String, project_id :: Integer, _csrf_token
 end
 
 function get_example_ids(base_url:: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
-    examples = get_examples(base_url, project_id, _csrf_token, url_parameters, version)
+    examples = get_all_examples(base_url, project_id, _csrf_token, url_parameters, version)
     example_ids = [example for example in examples]
-    @info example_ids
+    return example_ids
 end
 
 function make_count_examples_request(url :: String, headers :: Vector{Pair{String, String}})
