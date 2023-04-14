@@ -92,6 +92,10 @@ function get_all_examples(base_url :: String, project_id :: Integer, _csrf_token
     return example_arry
 end
 
+function make_count_examples_request(url :: String, headers :: Vector{Pair{String, String}})
+    return HTTP.get(url, headers; cookies = true)
+end
+
 function make_create_example_request(url :: String, headers:: Vector{Pair{String, String}}, user_body :: Union{HTTP.Form, String})
     return HTTP.post(url, headers, body=user_body; cookies = true)
 end
@@ -293,6 +297,13 @@ function delete_examples(base_url :: String, project_ids :: Union{Vector{Integer
     for (project_id, example_id) in create_project_example_pairs(project_ids, example_ids)
         delete_example(base_url, project_id, example_id, _csrf_token, version)
     end
+end
+
+function count_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
+    url = create_project_id_url(base, project_id, version, "examples")
+    headers = ["X-CSRFToken"=>_csrf_token]
+    r = make_count_examples_request(url, headers)
+    return JSON3.read(r.body)
 end
 
 #sample_classification_file_name = "sample_classification_inputs.jsonl"

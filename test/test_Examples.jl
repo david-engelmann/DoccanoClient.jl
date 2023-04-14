@@ -33,17 +33,12 @@ end
 
     @info "Second Post Update Test"
     text_data = test_example_detail["text"] * "!!!"
-    @info test_example_detail
-    @info typeof(text_data)
-    @info text_data
-
     update_response = update_example_elements(base_url, test_project_id, test_example_id, csrf_token, text_data)
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
     @test endswith(test_example_detail["text"], "!!!")
 
     @info "Third Post Update Test"
     text_data = test_example_detail["text"] * "???"
-    @info text_data
     update_response = update_example_elements(base_url, test_project_id, test_example_id, csrf_token, text_data)
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
     @test endswith(test_example_detail["text"], "???")
@@ -73,4 +68,12 @@ end
     fp_revert_url = create_fp_revert_url(base_url, version)
     test_fp_revert_url = if endswith(base_url, raw"/") "$(base_url)$(version)/fp/revert/" else "$(base_url)/$(version)/fp/revert/" end
     @test fp_revert_url == test_fp_revert_url
+end
+
+@testset "Examples - Count Examples" begin
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    number_of_examples = count_examples(base_url, test_project_id, csrf_token)
+    @test number_of_examples > 0
 end
