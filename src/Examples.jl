@@ -300,7 +300,7 @@ function delete_examples(base_url :: String, project_ids :: Union{Vector{Integer
 end
 
 function count_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
-    url = create_project_id_url(base, project_id, version, "examples")
+    url = create_project_id_url(base_url, project_id, version, "examples")
     headers = ["X-CSRFToken"=>_csrf_token]
     r = make_count_examples_request(url, headers)
     return JSON3.read(r.body)
