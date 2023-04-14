@@ -17,6 +17,7 @@ using Test
     =#
     test_project_id = 1
     projects = get_projects(base_url, csrf_token, "v1")
+    create_project(base_url, "july_jackson", csrf_token, "test changing names from julia")
     project_detail = get_project_detail(base_url, test_project_id, csrf_token, "v1")
     @test isempty(projects) == false
     @test isempty(project_detail) == false
