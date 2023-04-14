@@ -28,7 +28,7 @@ end
     version = "v1"
     example_ids = get_example_ids(base_url, test_project_id, csrf_token, nothing, version)
     @test length(example_ids) == 20
-    @test example_ids == [1:20]
+    @test example_ids == collect(1:20)
 
 end
 
