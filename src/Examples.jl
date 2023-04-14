@@ -319,7 +319,7 @@ function delete_examples(base_url :: String, project_ids :: Union{Vector{Integer
     end
 end
 
-function delete_all_examples(base_url :: String, project_ids:: Union{Vector{Integer, Integer}, _csrf_token :: String, version :: String="v1")
+function delete_all_examples(base_url :: String, project_ids:: Union{Vector{Integer}, Integer}, _csrf_token :: String, version :: String="v1")
     if isa(project_ids, Vector)
         for project_id in project_ids
             example_ids = []
