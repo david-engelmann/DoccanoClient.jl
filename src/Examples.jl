@@ -110,7 +110,7 @@ function get_example_ids(base_url:: String, project_id :: Integer, _csrf_token :
     if notnothing(url_parameters)
         examples = get_examples(base_url, project_id, _csrf_token, url_parameters, version)
     else
-        examples = get_examples(base_url, project_id, _csrf_token, version)
+        examples = get_all_examples(base_url, project_id, _csrf_token, version)
     end
     example_ids = [example for example in examples]
     return example_ids
