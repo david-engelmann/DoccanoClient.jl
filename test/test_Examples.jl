@@ -33,7 +33,6 @@ end
 end
 
 @testset "Examples - Update Functions" begin
-    @info "First Post Update Test"
     base_url = ENV["DOCCANO_BASE_URL"]
     test_project_id = 1
     version = "v1"
@@ -41,13 +40,11 @@ end
     test_example_id = first(examples["results"])["id"]
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
 
-    @info "Second Post Update Test"
     text_data = test_example_detail["text"] * "!!!"
     update_response = update_example_elements(base_url, test_project_id, test_example_id, csrf_token, text_data)
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
     @test endswith(test_example_detail["text"], "!!!")
 
-    @info "Third Post Update Test"
     text_data = test_example_detail["text"] * "???"
     update_response = update_example_elements(base_url, test_project_id, test_example_id, csrf_token, text_data)
     test_example_detail = get_example_detail(base_url, test_project_id, test_example_id, csrf_token)
