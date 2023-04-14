@@ -145,8 +145,6 @@ function create_example(base_url :: String, project_id :: Integer, _csrf_token :
     url = create_project_id_url(base_url, project_id, version)
     example_payload = Dict(["text" => text,
                          "meta" => meta])
-    @info typeof(JSON3.write(example_payload))
-    @info JSON3.write(example_payload)
     r = make_create_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
@@ -158,28 +156,18 @@ function update_example(base_url :: String, project_id :: Integer, example_id ::
                "accept" => "application/json"]
     example_payload = Dict(["text" => text,
                          "meta" => meta])
-    @info "example_payload"
-    @info typeof(JSON3.write(example_payload))
-    @info JSON3.write(example_payload)
     r = make_update_example_request(url, headers, JSON3.write(example_payload))
     return JSON3.read(r.body)
 end
 
 function update_example_elements(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: Union{String, Nothing}=nothing, meta :: Union{Dict, Nothing}=nothing, version :: String="v1")
     example_detail = get_example_detail(base_url, project_id, example_id, _csrf_token, version)
-    @info example_detail
     if text == nothing
         text = example_detail["text"]
     end
-    @info "Made it past text == nothing"
     if meta == nothing
         meta = copy(example_detail["meta"])
     end
-    @info typeof(meta)
-    @info "see meta"
-    @info meta
-
-    @info "Made it past meta == nothing"
     return update_example(base_url, project_id, example_id, _csrf_token, text, meta, version)
 end
 
@@ -249,12 +237,8 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
         file_io = open(file, "r")
         file_name = create_uploadable_file_name(file)
         file_dict = HTTP.Form(Dict(["filepond" => HTTP.Multipart(file_name, file_io)]))
-        @info file_dict
-        #file_dict = Dict(["filepond" => read(file_io, String)])
-        #println(file_dict)
         try
             fp_process_request = make_fp_process_request(fp_process_url, headers, file_dict, file_name)
-            @info fp_process_request
             upload_id = get_upload_id_from_fp_process_request(fp_process_request)
             push!(upload_ids, upload_id)
         catch e
@@ -264,9 +248,7 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
             end
         end
     end
-    @info "Made it past upload ids"
     task_name = get_project_detail(base_url, project_id, _csrf_token, "v1")["project_type"]
-    @info task_name
 
     final_upload_headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
@@ -280,7 +262,6 @@ function upload_examples(base_url :: String, project_id :: Integer, _csrf_token 
             "task" => task_name,
             "uploadIds" => upload_ids
             ])
-    @info upload_data
     r = make_upload_file_request(url, final_upload_headers, JSON3.write(upload_data))
     return JSON3.read(r.body)
 end
