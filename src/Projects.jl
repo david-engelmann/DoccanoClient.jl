@@ -22,24 +22,28 @@ function parse_non_string_for_form(attr)
 end
 =#
 
-function create_project_id_url(base_url :: String, endpoint :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
+function create_project_id_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     base_url = base_url * version * raw"/"
     if url_suffix !== nothing
-        return base_url * endpoint * raw"/" * string(project_id) * raw"/" * url_suffix
+        return base_url * "projects" * raw"/" * string(project_id) * raw"/" * url_suffix
     else
-        return base_url * endpoint * raw"/" * string(project_id)
+        return base_url * "projects" * raw"/" * string(project_id)
     end
 end
 
-function create_project_url(base_url :: String, endpoint :: String, version :: String="v1")
+function create_endpoint_url(base_url :: String, endpoint :: String, version :: String="v1")
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     base_url = base_url * version * raw"/"
     return base_url * endpoint
 end
 
+function create_project_url(base_url :: String, version :: String="v1")
+    return create_endpoint_url(base_url, "projects", version)
+end
+
 function get_projects(base_url :: String, _csrf_token :: String, version :: String="v1")
-    url = create_project_url(base_url, "projects", version)
+    url = create_project_url(base_url, version)
     headers = ["X-CSRFToken"=>_csrf_token]
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
@@ -50,7 +54,7 @@ function get_projects(base_url :: String, _csrf_token :: String, version :: Stri
 end
 
 function get_project_detail(base_url :: String, project_id :: Integer, _csrf_token :: String, version ::String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version)
+    url = create_project_id_url(base_url, project_id, version)
     headers = ["X-CSRFToken"=>_csrf_token]
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
@@ -103,7 +107,7 @@ function make_export_project_request(url :: String, headers :: Vector{Pair{Strin
 end
 
 function create_project(base_url :: String, name :: String, _csrf_token :: String, description :: String="", project_type :: String="DocumentClassification", guideline :: String="", resourcetype :: String="TextClassificationProject", randomize_document_order :: Bool=false, collaborative_annotation :: Bool=false, version :: String="v1")
-    url = create_project_url(base_url, "projects", version)
+    url = create_project_url(base_url, version)
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form, 
                 "accept" => "application/json"]
     if typeof(randomize_document_order) == Bool
@@ -136,7 +140,7 @@ function create_project(base_url :: String, name :: String, _csrf_token :: Strin
 end
 
 function update_project(base_url :: String, project_id :: Integer, _csrf_token :: String, name :: String, description :: String="", project_type :: String="DocumentClassification", guideline :: String="", resourcetype :: String="TextClassificationProject", randomize_document_order :: Bool=false, collaborative_annotation :: Bool=false, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version)
+    url = create_project_id_url(base_url, project_id, version)
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
     if typeof(randomize_document_order) == Bool
@@ -194,7 +198,7 @@ function update_project_elements(base_url :: String, project_id :: Integer, _csr
 end
 
 function delete_project(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version)
+    url = create_project_id_url(base_url, project_id, version)
     headers = ["X-CSRFToken"=>_csrf_token]
     r = make_delete_project_request(url, headers)
 end
@@ -202,13 +206,13 @@ end
 function delete_projects(base_url :: String, project_ids :: Vector{Integer}, _csrf_token :: String, version :: String="v1")
     headers = ["X-CSRFToken"=>_csrf_token]
     for project_id in project_ids
-        url = create_project_id_url(base_url, "projects", project_id, version)
+        url = create_project_id_url(base_url, project_id, version)
         r = make_delete_project_request(url, headers)
     end
 end
 
 function export_project(base_url :: String, project_id :: Integer, save_path:: String, _csrf_token :: String, file_format :: String="json", only_approved :: Bool=false, version :: String="v1")
-    download_url = create_project_id_url(base_url, "projects", project_id, version, "download")
+    download_url = create_project_id_url(base_url, project_id, version, "download")
     file_format = lowercase(file_format)
 
     if file_format == "csv"
