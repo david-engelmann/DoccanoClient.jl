@@ -107,10 +107,10 @@ function get_all_examples(base_url :: String, project_id :: Integer, _csrf_token
 end
 
 function get_example_ids(base_url:: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
-    if notnothing(url_parameters)
-        examples = get_examples(base_url, project_id, _csrf_token, url_parameters, version)
-    else
+    if isnothing(url_parameters)
         examples = get_all_examples(base_url, project_id, _csrf_token, version)
+    else
+        examples = get_examples(base_url, project_id, _csrf_token, url_parameters, version)
     end
     example_ids = [example for example in examples]
     return example_ids
