@@ -112,7 +112,7 @@ function get_example_ids(base_url:: String, project_id :: Integer, _csrf_token :
     else
         examples = get_examples(base_url, project_id, _csrf_token, url_parameters, version)
     end
-    example_ids = [example for example in examples]
+    example_ids = [example["id"] for example in examples]
     return example_ids
 end
 
