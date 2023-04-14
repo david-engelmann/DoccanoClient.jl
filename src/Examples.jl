@@ -24,8 +24,17 @@ function create_example_id_url(base_url :: String, example_id :: Integer, url_su
     end
 end
 
+function create_examples_url(base_url :: String, url_suffix :: Union{String, Nothing}=nothing)
+    base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
+    if url_suffix !== nothing
+        return base_url * "examples" *  raw"/" * url_suffix
+    else
+        return base_url * "examples"
+    end
+end
+
 function create_example_upload_url(base_url :: String, project_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
-    base_url = create_project_id_url(base_url, "projects", project_id, version)
+    base_url = create_project_id_url(base_url, project_id, version)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     if url_suffix !== nothing
         return base_url * "upload" * raw"/" * url_suffix
@@ -45,7 +54,8 @@ function create_fp_revert_url(base_url :: String, version :: String="v1")
 end
 
 function get_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, url_parameters :: Union{Dict, Nothing}=nothing, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version, "examples")
+    url = create_project_id_url(base_url, project_id, version)
+    url = create_examples_url(url)
     if url_parameters !== nothing
         url = create_url_query(url, url_parameters)
     end
@@ -60,7 +70,7 @@ function get_examples(base_url :: String, project_id :: Integer, _csrf_token :: 
 end
 
 function get_example_detail(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version)
+    url = create_project_id_url(base_url, project_id, version)
     url = create_example_id_url(url, example_id)
     println(url)
     headers = ["X-CSRFToken"=>_csrf_token]
@@ -300,7 +310,8 @@ function delete_examples(base_url :: String, project_ids :: Union{Vector{Integer
 end
 
 function count_examples(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
-    url = create_project_id_url(base_url, project_id, version, "examples")
+    url = create_project_id_url(base_url, project_id, version)
+    url = create_examples_url(url)
     headers = ["X-CSRFToken"=>_csrf_token]
     r = make_count_examples_request(url, headers)
     return JSON3.read(r.body)
