@@ -7,6 +7,15 @@ function create_url_query(url :: String, url_parameters :: Dict)
     return string(url)
 end
 
+function create_download_url(base_url :: String, url_suffix :: Union{String, Nothing}=nothing)
+    base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
+    if url_suffix !== nothing
+        return base_url * "download" * raw"/" * url_suffix
+    else
+        return base_url * "download"
+    end
+end
+
 function create_task_id_status_url(base_url :: String, task_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     base_url = base_url * version * raw"/"
@@ -14,11 +23,12 @@ function create_task_id_status_url(base_url :: String, task_id :: Integer, versi
         return base_url * "tasks/status" * raw"/" * string(task_id) * raw"/" * url_suffix
     else
         return base_url * "tasks/status" * raw"/" * string(task_id)
-    end 
+    end
 end
 
 function create_task_id_download_url(base_url :: String, project_id :: Integer, task_id :: Integer, version :: String="v1", url_suffix :: Union{String, Nothing}=nothing)
-    url = create_project_id_url(base_url, "projects", project_id, version, "download")
+    url = create_project_id_url(base_url, project_id, version)
+    url = create_download_url(url)
     task_id_payload = Dict([
         "taskId" => task_id
     ]) 

@@ -124,7 +124,7 @@ function create_example(base_url :: String, project_id :: Integer, _csrf_token :
     end
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", # Comment out with HTTP.Form,
                 "accept" => "application/json"]
-    url = create_project_id_url(base_url, "projects", project_id, version)
+    url = create_project_id_url(base_url, project_id, version)
     example_payload = Dict(["text" => text,
                          "meta" => meta])
     @info typeof(JSON3.write(example_payload))
@@ -134,7 +134,7 @@ function create_example(base_url :: String, project_id :: Integer, _csrf_token :
 end
 
 function update_example(base_url :: String, project_id :: Integer, example_id :: Integer, _csrf_token :: String, text :: String,  meta :: Union{Dict, Nothing}=nothing, version :: String="v1")
-    url = create_project_id_url(base_url, "projects", project_id, version)
+    url = create_project_id_url(base_url, project_id, version)
     url = create_example_id_url(url, example_id)
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
