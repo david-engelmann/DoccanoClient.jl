@@ -59,7 +59,7 @@ end
     @test project_url == test_project_url
 
     example_url = create_example_id_url(project_url, test_example_id)
-    test_example_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/$(test_example_id)" else "$(base_url)/$(version)/projects/$(test_project_id)/$(test_example_id)" end
+    test_example_url = if endswith(base_url, raw"/") "$(base_url)$(version)/projects/$(test_project_id)/examples/$(test_example_id)" else "$(base_url)/$(version)/projects/$(test_project_id)/examples/$(test_example_id)" end
     @test example_url == test_example_url
 
     example_upload_url = create_example_upload_url(base_url, test_project_id, version)
