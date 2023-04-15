@@ -144,18 +144,18 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
     @info "----------------Uploading Category Types -------------------"
     files = create_file_paths(file_name, file_path)
     @info "files:"
-    @files
+    @info files
     req_responses = []
     for file in files
         file_io = open(file, "r")
         @info "file_io:"
-        @file_io
+        @info file_io
         upload_dict = Dict(["file" => read(file_io, String)])
         @info "upload_dict:"
-        @upload_dict
+        @info upload_dict
         r = make_category_type_upload_request(url, headers, upload_dict)
         @info "request results:"
-        @r
+        @info r
         push!(req_responses, JSON3.read(r.body))
     end
     return req_responses
