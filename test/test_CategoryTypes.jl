@@ -5,9 +5,9 @@ using Test
     base_url = ENV["DOCCANO_BASE_URL"]
     test_project_id = 1
     version = "v1"
-    sample_category_types_file_name = "label_multi_label_alpha.json"
+    sample_category_types_file_name = "sample_category_types.json"
     sample_category_types_file_path = "test/assets"
-    upload_category_types(base_url, test_project_id, csrf_token, sample_category_types_file_name, sample_category_types_file_path)
+    upload_category_types(base_url, test_project_id, csrf_token, sample_category_types_file_name, sample_category_types_file_path, version)
     @test isa(base_url, String)
 end
 

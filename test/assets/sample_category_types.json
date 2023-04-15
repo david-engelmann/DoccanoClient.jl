@@ -1,0 +1,17 @@
+[
+    {
+        "text": "y",
+        "prefixKey": null,
+        "suffixKey": "y",
+        "backgroundColor": "#68BC00",
+        "textColor": "#eeeeee"
+    },
+    {
+        "text": "n",
+        "prefixKey": null,
+        "suffixKey": "n",
+        "backgroundColor": "#F44E3B",
+        "textColor": "#eeeeee"
+
+    }
+]
