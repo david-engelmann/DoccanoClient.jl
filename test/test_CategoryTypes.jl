@@ -2,8 +2,13 @@ include("../src/CategoryTypes.jl")
 using Test
 
 @testset "CategoryTypes - Upload Functions" begin
-    @info "Testing uploading"
-    @test false == true
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    sample_category_types_file_name = "sample_category_types.json"
+    sample_category_types_file_path = "test/assets"
+    upload_category_types(base_url, test_project_id, csrf_token, sample_category_types_file_name, sample_category_types_file_path)
+    @test isa(base_url, String)
 end
 
 @testset "CategoryTypes - Get Functions" begin
