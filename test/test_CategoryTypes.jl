@@ -22,7 +22,7 @@ end
 end
 
 @testset "CategoryTypes - Link Creation" begin
-    @info "Testing Link Creation" begin
+    @info "Testing Link Creation"
     assert false
 end
 
