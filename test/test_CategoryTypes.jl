@@ -32,8 +32,17 @@ end
 end
 
 @testset "CategoryTypes - Update Functions" begin
-    @info "Testing updating"
-    @test false == true
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    category_types = get_category_types(base_url, test_project_id, csrf_token, version)
+    test_category_type_id = first(category_types["results"])["id"]
+    test_category_type_detail = get_category_type_detail(base_url, test_project_id, test_category_type_id, csrf_token)
+    update_category_type_name = test_category_type_detail["text"] + "zzzz"
+    update_response = update_category_type_elements(base_url, test_project_id, test_category_type_id, csrf_token, update_category_type_name)
+    test_category_type_detail = get_category_type_detail(base_url, test_project_id, test_category_type_id, csrf_token)
+    @test endswith(test_category_type_detail["text"], "zzzz")
+
 end
 
 @testset "CategoryTypes - Link Creation" begin
