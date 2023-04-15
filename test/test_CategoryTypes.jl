@@ -46,7 +46,12 @@ end
 end
 
 @testset "CategoryTypes - Link Creation" begin
-    @info "Testing Link Creation"
-    @test false == true
+    base_url = ENV["DOCCANO_BASE_URL"]
+    test_project_id = 1
+    version = "v1"
+    test_example_id = 1
+    category_type_url = create_category_type_url(base_url, test_project_id, version)
+    test_category_type_url = if endswith(base_url, raw"/") "$(base_url)$(version)/$(test_project_id)/category-types" else "$(base_url)/$(version)/$(test_project_id)/category-types" end
+    @test category_type_url == test_category_type_url
 end
 
