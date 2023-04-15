@@ -26,9 +26,9 @@ function create_category_type_upload_url(base_url :: String, project_id :: Integ
     base_url = create_project_id_url(base_url, project_id, version)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     if url_suffix !== nothing
-        return base_url * "category-types-upload" * raw"/" * url_suffix
+        return base_url * "category-type-upload" * raw"/" * url_suffix
     else
-        return base_url * "category-types-upload"
+        return base_url * "category-type-upload"
     end
 end
 
