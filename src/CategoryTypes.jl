@@ -75,9 +75,11 @@ end
 
 function get_category_type_by_name(base_url :: String, project_id :: Integer, category_type_name :: String, _csrf_token :: String, version ::String="v1")
     category_types = get_category_types(base_url, project_id, _csrf_token, version)
-    for category_type in category_types:
-        if category_type["text"] == category_type_name:
+    for category_type in category_types
+        if category_type["text"] == category_type_name
             return category_type
+        end
+    end
     throw(error())
 end
 
