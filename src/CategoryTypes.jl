@@ -18,7 +18,7 @@ function create_category_type_id_url(base_url :: String, category_type_id :: Int
         return base_url * string(category_type_id) * raw"/" * url_suffix
     else
         return base_url * string(category_type_id)
-    end 
+    end
 end
 
 
@@ -62,7 +62,8 @@ function get_category_type_ids(base_url :: String, project_id :: Integer, _csrf_
 end
 
 function get_category_type_detail(base_url :: String, project_id :: Integer, category_type_id :: Integer, _csrf_token :: String, version ::String="v1")
-    url = create_category_type_url(base_url, project_id, version, string(category_type_id))
+    url = create_category_type_url(base_url, project_id, version)
+    url = create_category_type_id_url(url, category_type_id)
     headers = ["X-CSRFToken"=>_csrf_token]
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
@@ -70,6 +71,14 @@ function get_category_type_detail(base_url :: String, project_id :: Integer, cat
         end
     end
     return category_type_detail
+end
+
+function get_category_type_by_name(base_url :: String, project_id :: Integer, category_type_name :: String, _csrf_token :: String, version ::String="v1")
+    category_types = get_category_types(base_url, project_id, _csrf_token, version)
+    for category_type in category_types:
+        if category_type["text"] == category_type_name:
+            return category_type
+    throw(error())
 end
 
 function create_category_type(base_url :: String, project_id :: Integer, _csrf_token :: String, text :: String, text_color :: String="#ffffff", background_color :: String="#cdcdcd", prefix_key :: Union{String, Nothing}=nothing, suffix_key :: Union{String, Nothing}=nothing, version :: String="v1")
@@ -89,7 +98,8 @@ function create_category_type(base_url :: String, project_id :: Integer, _csrf_t
 end
 
 function update_category_type(base_url :: String, project_id :: Integer, category_type_id :: Integer, _csrf_token :: String,  text :: String, text_color :: String="#ffffff", background_color :: String="#cdcdcd", prefix_key :: Union{String, Nothing}=nothing, suffix_key :: Union{String, Nothing}=nothing, version :: String="v1")
-    url = create_category_type_url(base_url,project_id, version, string(category_type_id))
+    url = create_category_type_url(base_url, project_id, version)
+    url = create_category_type_id_url(url, category_type_id)
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
 
