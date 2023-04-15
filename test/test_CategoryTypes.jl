@@ -39,9 +39,11 @@ end
     test_category_type_id = first(category_types["results"])["id"]
     test_category_type_detail = get_category_type_detail(base_url, test_project_id, test_category_type_id, csrf_token)
     update_category_type_name = test_category_type_detail["text"] + "zzzz"
-    update_response = update_category_type_elements(base_url, test_project_id, test_category_type_id, csrf_token, update_category_type_name)
+    update_response = update_category_type_elements(base_url, test_project_id, test_category_type_id, csrf_token, update_category_type_name, text_color="#ffffff", background_color="#4D64AE")
     test_category_type_detail = get_category_type_detail(base_url, test_project_id, test_category_type_id, csrf_token)
     @test endswith(test_category_type_detail["text"], "zzzz")
+    @test test_category_type_detail["text_color"] == "#ffffff"
+    @test test_category_type_detail["background_color"] == "#4D64AE"
 
 end
 
