@@ -41,10 +41,12 @@ function make_update_category_type_request(url :: String, headers:: Vector{Pair{
 end
 
 function make_category_type_upload_request(url :: String, headers :: Vector{Pair{String, String}}, file_io :: Union{
-                                               Dict{String, Union{IOStream, IOBuffer}},
+                                               IOStream,
+                                               IOBuffer,
                                                HTTP.Form,
                                                Dict{String, String},
                                                Dict{String, HTTP.Forms.Multipart{IOStream}},
+                                               Dict{String, IOBuffer},
                                                Dict{String, IOStream}
                                                })
     return HTTP.post(url, headers, file_io; cookies = true)
