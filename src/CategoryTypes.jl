@@ -159,8 +159,10 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         @info "file_name:"
         @info file_name
         @info "Check Multipart:"
-        @info HTTP.Multipart(file_name, file_io, "application/json")
-        upload_dict = Dict(["file" => HTTP.Multipart(file_name, file_io, "application/json")])
+        multipart = HTTP.Multipart(file_name, file_io, "application/json")
+        @info methods(multipart)
+        @info isempty(multipart)
+        upload_dict = Dict(["file" => multipart])
         #upload_dict = Dict(["file" => read(file_io, String)])
         @info "headers:"
         @info headers
