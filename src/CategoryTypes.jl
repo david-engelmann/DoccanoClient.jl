@@ -41,6 +41,7 @@ function make_update_category_type_request(url :: String, headers:: Vector{Pair{
 end
 
 function make_category_type_upload_request(url :: String, headers :: Vector{Pair{String, String}}, file_io :: Union{
+                                               String,
                                                IOStream,
                                                IOBuffer,
                                                HTTP.Form,
