@@ -44,7 +44,7 @@ function make_category_type_upload_request(url :: String, headers :: Vector{Pair
                                                Dict{String, Union{IOStream, IOBuffer}},
                                                HTTP.Form,
                                                Dict{String, String},
-                                               Dict{String, HTTP.Forms.Multipart{Union{IOStream, IOBuffer}}}
+                                               Dict{String, HTTP.Forms.Multipart{IOStream}}
                                                })
     return HTTP.post(url, headers, file_io; cookies = true)
 end
