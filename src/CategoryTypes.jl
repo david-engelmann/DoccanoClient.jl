@@ -161,7 +161,7 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         @info headers
         @info "upload_dict:"
         @info upload_dict
-        r = make_category_type_upload_request(url, headers, upload_dict)
+        r = make_category_type_upload_request(url, headers, JSON3.write(upload_dict))
         @info "request results:"
         @info r
         push!(req_responses, JSON3.read(r.body))
