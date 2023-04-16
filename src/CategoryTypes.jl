@@ -158,6 +158,8 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         file_name = create_uploadable_file_name(file)
         @info "file_name:"
         @info file_name
+        @info "file exist check:"
+        @info isfile(file_name)
         upload_dict = Dict(["file" => HTTP.Multipart(file_name, file_io, "application/json")])
         #upload_dict = Dict(["file" => read(file_io, String)])
         @info "headers:"
