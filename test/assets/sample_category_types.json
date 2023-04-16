@@ -1,14 +1,14 @@
 [
     {
         "text": "y",
-        "prefixKey": null,
+        "prefixKey": "ctrl",
         "suffixKey": "y",
         "backgroundColor": "#68BC00",
         "textColor": "#eeeeee"
     },
     {
         "text": "n",
-        "prefixKey": null,
+        "prefixKey": "ctrl",
         "suffixKey": "n",
         "backgroundColor": "#F44E3B",
         "textColor": "#eeeeee"
