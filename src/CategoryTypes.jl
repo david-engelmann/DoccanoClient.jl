@@ -40,7 +40,12 @@ function make_update_category_type_request(url :: String, headers:: Vector{Pair{
     return HTTP.patch(url, headers, body=user_body; cookies = true)
 end
 
-function make_category_type_upload_request(url :: String, headers :: Vector{Pair{String, String}}, file_io :: Union{Dict{String, Union{IOStream, IOBuffer}}, HTTP.Form, Dict{String, String}, Dict{String, HTTP.Forms.Multipart}})
+function make_category_type_upload_request(url :: String, headers :: Vector{Pair{String, String}}, file_io :: Union{
+                                               Dict{String, Union{IOStream, IOBuffer}},
+                                               HTTP.Form,
+                                               Dict{String, String},
+                                               Dict{String, HTTP.Forms.Multipart{Union{IOStream, IOBuffer}}}
+                                               })
     return HTTP.post(url, headers, file_io; cookies = true)
 end
 
