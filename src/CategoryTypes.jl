@@ -139,8 +139,8 @@ end
 
 function upload_category_types(base_url :: String, project_id :: Integer, _csrf_token :: String, file_name :: Union{String, Vector{String}}, file_path :: Union{String, Vector{String}}="./", version :: String="v1")
     url = create_category_type_upload_url(base_url, project_id)
-    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
-               "accept" => "application/json"]
+    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json" ] #,
+               #"accept" => "application/json"]
     @info "----------------Uploading Category Types -------------------"
     files = create_file_paths(file_name, file_path)
     @info "files:"
@@ -150,12 +150,6 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         file_io = open(file, "r")
         @info "file_io:"
         @info file_io
-
-        file_name = create_uploadable_file_name(file)
-        @info "file_name:"
-        @info file_name
-        #file_dict = HTTP.Form(Dict(["filepond" => HTTP.Multipart(file_name, file_io)]))
-        #upload_dict = HTTP.Form(Dict(["file" => HTTP.Multipart(file_name, file_io)]))
         upload_dict = Dict(["file" => read(file_io, String)])
 
         @info "upload_dict:"
