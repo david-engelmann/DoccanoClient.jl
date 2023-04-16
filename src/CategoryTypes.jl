@@ -160,7 +160,7 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         #upload_dict = Dict(["file" => multipart])
         upload_text = read(file_io, String)
         upload_dict = Dict(["file" => upload_text])
-        append!(headers, ["Content-Length: " * string(length(upload_text))])
+        append!(headers, ["Content-Length: " => string(length(upload_text))])
         @info "headers:"
         @info headers
         @info "upload_dict:"
