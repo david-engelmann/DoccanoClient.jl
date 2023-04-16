@@ -148,8 +148,6 @@ end
 
 function upload_category_types(base_url :: String, project_id :: Integer, _csrf_token :: String, file_name :: Union{String, Vector{String}}, file_path :: Union{String, Vector{String}}="./", version :: String="v1")
     url = create_category_type_upload_url(base_url, project_id)
-    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json"]
-               #"accept" => "application/json"]
     @info "----------------Uploading Category Types -------------------"
     files = create_file_paths(file_name, file_path)
     req_responses = []
@@ -160,7 +158,7 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         #upload_dict = Dict(["file" => multipart])
         upload_text = read(file_io, String)
         upload_dict = Dict(["file" => upload_text])
-        append!(headers, ["Content-Length: " => length(upload_text)])
+        headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json", "Content-Length: " => length(upload_text)]
         @info "headers:"
         @info headers
         @info "upload_dict:"
@@ -168,7 +166,6 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         r = make_category_type_upload_request(url, headers, upload_dict)
         @info "request results:"
         @info r
-        pop!(headers)
         push!(req_responses, JSON3.read(r.body))
     end
     return req_responses
