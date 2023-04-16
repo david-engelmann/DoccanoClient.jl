@@ -156,12 +156,11 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
     for file in files
         file_io = open(file, "r")
         file_name = create_uploadable_file_name(file)
-        @info "file_name:"
-        @info file_name
-        multipart = HTTP.Multipart(file_name, file_io, "application/json")
-        upload_dict = Dict(["file" => multipart])
-        #upload_dict = Dict(["file" => read(file_io, String)])
-        append!(headers, ["Content-Length: " * string(length(file_io))])
+        #multipart = HTTP.Multipart(file_name, file_io, "application/json")
+        #upload_dict = Dict(["file" => multipart])
+        upload_text = read(file_io, String)
+        upload_dict = Dict(["file" => upload_text])
+        append!(headers, ["Content-Length: " * string(length(upload_text))])
         @info "headers:"
         @info headers
         @info "upload_dict:"
