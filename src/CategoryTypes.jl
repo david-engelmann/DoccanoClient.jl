@@ -152,7 +152,7 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
     files = create_file_paths(file_name, file_path)
     req_responses = []
     for file in files
-        file_io = gzopen(file, "r")
+        file_io = open(file, "r")
         file_name = create_uploadable_file_name(file)
         #multipart = HTTP.Multipart(file_name, file_io, "application/json")
         #upload_dict = Dict(["file" => multipart])
