@@ -156,9 +156,11 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         file_name = create_uploadable_file_name(file)
         multipart = HTTP.Multipart(file_name, file_io, "application/json")
         #upload_dict = Dict(["file" => multipart])
-        #upload_text = read(file_io, String)
+        upload_text = read(file_io, String)
+        @info "upload_text:"
+        @info upload_text
         upload_dict = HTTP.Form(Dict(["file" => multipart]))
-        headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "multipart/form-data; boundary=----WebkitFormBoundaryxuRflWRLKyUvZXIa"] #, "Content-Length" => length(file_io)]
+        headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "multipart/form-data; boundary=----WebkitFormBoundaryxuRflWRLKyUvZXIa", "Content-Length" => length(upload_text)]
         @info "headers:"
         @info headers
         @info "upload_dict:"
