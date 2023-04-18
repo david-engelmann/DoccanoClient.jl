@@ -163,7 +163,7 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         @info "upload_dict:"
         @info upload_dict
         #headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "multipart/form-data; boundary=----WebkitFormBoundaryxuRflWRLKyUvZXIa", "Content-Length" => length(upload_text)]
-        headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "application/json", "Content-Length" => length(String(multipart.data))]
+        headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "application/json", "Content-Length" => length(String(take!(multipart.data)))]
         @info "headers:"
         @info headers
         r = make_category_type_upload_request(url, headers, upload_dict)
