@@ -161,7 +161,7 @@ function upload_category_types(base_url :: String, project_id :: Integer, _csrf_
         @info upload_text
         upload_dict = HTTP.Form(Dict(["file" => multipart]))
         #headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "multipart/form-data; boundary=----WebkitFormBoundaryxuRflWRLKyUvZXIa", "Content-Length" => length(upload_text)]
-        headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "application/json", "Content-Length" => length(multipart.data)]
+        headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "application/json", "Content-Length" => length(read(multipart.data))]
         @info "headers:"
         @info headers
         @info "upload_dict:"
