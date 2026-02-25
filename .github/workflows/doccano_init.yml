@@ -29,6 +29,9 @@ jobs:
   # 1. New setup job to check runner availability
   check_runner:
     runs-on: ubuntu-latest
+    concurrency:
+      group: runner-determination
+      cancel-in-progress: false
     outputs:
       active_runner: ${{ steps.check.outputs.use-runner }}
     steps:
@@ -39,6 +42,8 @@ jobs:
         with:
           primary-runner: "self-hosted, runner-grid"
           fallback-runner: "ubuntu-latest"
+          primaries-required: 1
+          fallback-on-error: true
           github-token: ${{ secrets.CUSTOM_PAT }}
           
   # This workflow contains a single job called "build"
