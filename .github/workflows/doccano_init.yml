@@ -22,21 +22,20 @@ jobs:
   check_runner:
     runs-on: ubuntu-latest
     outputs:
-      active_runner: ${{ steps.check.outputs.runner }}
+      active_runner: ${{ steps.check.outputs.use-runner }}
     steps:
       - name: Check if runner-grid is online
         id: check
-        uses: jimmygchen/check-runner-availability@v0.1.1
+        # Using the actively maintained fork
+        uses: mikehardy/runner-fallback-action@v1
         with:
+          primary-runner: "self-hosted, runner-grid"
+          fallback-runner: "ubuntu-latest"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          label: 'runner-grid'
-          fallback: 'ubuntu-latest'
-
+          
   # This workflow contains a single job called "build"
   build:
-    # 2. Require the check_runner job to finish first
     needs: check_runner
-    # 3. Dynamically set the runner based on the output
     runs-on: ${{ fromJSON(needs.check_runner.outputs.active_runner) }}
     
     container:
