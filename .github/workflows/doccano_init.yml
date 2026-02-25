@@ -31,7 +31,7 @@ jobs:
         with:
           primary-runner: "self-hosted, runner-grid"
           fallback-runner: "ubuntu-latest"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.CUSTOM_PAT }}
           
   # This workflow contains a single job called "build"
   build:
