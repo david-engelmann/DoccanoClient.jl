@@ -18,6 +18,14 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  test-runner:
+    runs-on: [self-hosted, runner-grid]
+    steps:
+      - name: Show runner info
+        run: |
+          echo "Hello from self-hosted"
+          echo "Runner name: $RUNNER_NAME"
+          uname -a
   # 1. New setup job to check runner availability
   check_runner:
     runs-on: ubuntu-latest
