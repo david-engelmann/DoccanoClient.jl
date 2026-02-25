@@ -37,7 +37,7 @@ jobs:
         # Using the actively maintained fork
         uses: mikehardy/runner-fallback-action@v1
         with:
-          primary-runner: "self-hosted, runner-grid"
+          primary-runner: "self-hosted,runner-grid"
           fallback-runner: "ubuntu-latest"
           github-token: ${{ secrets.CUSTOM_PAT }}
           
