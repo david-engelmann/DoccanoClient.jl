@@ -40,6 +40,9 @@ jobs:
           primary-runner: "self-hosted, runner-grid"
           fallback-runner: "ubuntu-latest"
           github-token: ${{ secrets.CUSTOM_PAT }}
+
+      - name: Log chosen runner
+        run: echo "use-runner=${{ steps.check.outputs.use-runner }}"
           
   # This workflow contains a single job called "build"
   build:
