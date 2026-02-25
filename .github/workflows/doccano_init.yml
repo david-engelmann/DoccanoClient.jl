@@ -40,7 +40,7 @@ jobs:
         # Using the actively maintained fork
         uses: mikehardy/runner-fallback-action@v1
         with:
-          primary-runner: "self-hosted, runner-grid"
+          primary-runner: "self-hosted,runner-grid"
           fallback-runner: "ubuntu-latest"
           primaries-required: 1
           fallback-on-error: true
