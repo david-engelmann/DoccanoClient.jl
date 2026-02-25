@@ -36,7 +36,7 @@ jobs:
       active_runner: ${{ steps.check.outputs.use-runner }}
     steps:
       - name: Wait for possible parallel workflow run job startup lag
-        run: sleep 8
+        run: sleep 7
       - name: Check if runner-grid is online
         id: check
         # Using the actively maintained fork
