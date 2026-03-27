@@ -1,0 +1,17 @@
+[
+    {
+        "text": "y",
+        "prefix_key": "ctrl",
+        "suffix_key": "y",
+        "background_color": "#68BC00",
+        "text_color": "#eeeeee"
+    },
+    {
+        "text": "n",
+        "prefix_key": "ctrl",
+        "suffix_key": "n",
+        "background_color": "#F44E3B",
+        "text_color": "#eeeeee"
+
+    }
+]

@@ -18,7 +18,7 @@ function create_category_type_id_url(base_url :: String, category_type_id :: Int
         return base_url * string(category_type_id) * raw"/" * url_suffix
     else
         return base_url * string(category_type_id)
-    end 
+    end
 end
 
 
@@ -26,9 +26,9 @@ function create_category_type_upload_url(base_url :: String, project_id :: Integ
     base_url = create_project_id_url(base_url, project_id, version)
     base_url = if endswith(base_url, raw"/") base_url else base_url * raw"/" end
     if url_suffix !== nothing
-        return base_url * "category-types-upload" * raw"/" * url_suffix
+        return base_url * "category-type-upload" * raw"/" * url_suffix
     else
-        return base_url * "category-types-upload"
+        return base_url * "category-type-upload"
     end
 end
 
@@ -40,7 +40,16 @@ function make_update_category_type_request(url :: String, headers:: Vector{Pair{
     return HTTP.patch(url, headers, body=user_body; cookies = true)
 end
 
-function make_category_type_upload_request(url :: String, headers :: Vector{Pair{String, String}}, file_io :: Union{Dict{String, Union{IOStream, IOBuffer}}, HTTP.Form, Dict{String, String}})
+function make_category_type_upload_request(url :: String, headers :: Vector{Pair{String, Any}}, file_io :: Union{
+                                               String,
+                                               IOStream,
+                                               IOBuffer,
+                                               HTTP.Forms.Form,
+                                               Dict{String, String},
+                                               Dict{String, HTTP.Forms.Multipart{IOStream}},
+                                               Dict{String, IOBuffer},
+                                               Dict{String, IOStream}
+                                               })
     return HTTP.post(url, headers, file_io; cookies = true)
 end
 
@@ -52,11 +61,18 @@ function get_category_types(base_url :: String, project_id :: Integer, _csrf_tok
             global category_types = JSON3.read(String(read(io)))
         end
     end
-    return category_types 
+    return category_types
+end
+
+function get_category_type_ids(base_url :: String, project_id :: Integer, _csrf_token :: String, version :: String="v1")
+    category_types = get_category_types(base_url, project_id, _csrf_token, version)
+    category_type_ids = [category_type["id"] for category_type in category_types]
+    return category_type_ids
 end
 
 function get_category_type_detail(base_url :: String, project_id :: Integer, category_type_id :: Integer, _csrf_token :: String, version ::String="v1")
-    url = create_category_type_url(base_url, project_id, version, string(category_type_id))
+    url = create_category_type_url(base_url, project_id, version)
+    url = create_category_type_id_url(url, category_type_id)
     headers = ["X-CSRFToken"=>_csrf_token]
     HTTP.open("GET", url, headers; cookies = true) do io
         while !eof(io)
@@ -64,6 +80,16 @@ function get_category_type_detail(base_url :: String, project_id :: Integer, cat
         end
     end
     return category_type_detail
+end
+
+function get_category_type_by_name(base_url :: String, project_id :: Integer, category_type_name :: String, _csrf_token :: String, version ::String="v1")
+    category_types = get_category_types(base_url, project_id, _csrf_token, version)
+    for category_type in category_types
+        if category_type["text"] == category_type_name
+            return category_type
+        end
+    end
+    throw(error())
 end
 
 function create_category_type(base_url :: String, project_id :: Integer, _csrf_token :: String, text :: String, text_color :: String="#ffffff", background_color :: String="#cdcdcd", prefix_key :: Union{String, Nothing}=nothing, suffix_key :: Union{String, Nothing}=nothing, version :: String="v1")
@@ -83,7 +109,8 @@ function create_category_type(base_url :: String, project_id :: Integer, _csrf_t
 end
 
 function update_category_type(base_url :: String, project_id :: Integer, category_type_id :: Integer, _csrf_token :: String,  text :: String, text_color :: String="#ffffff", background_color :: String="#cdcdcd", prefix_key :: Union{String, Nothing}=nothing, suffix_key :: Union{String, Nothing}=nothing, version :: String="v1")
-    url = create_category_type_url(base_url,project_id, version, string(category_type_id))
+    url = create_category_type_url(base_url, project_id, version)
+    url = create_category_type_id_url(url, category_type_id)
     headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
                "accept" => "application/json"]
 
@@ -121,14 +148,27 @@ end
 
 function upload_category_types(base_url :: String, project_id :: Integer, _csrf_token :: String, file_name :: Union{String, Vector{String}}, file_path :: Union{String, Vector{String}}="./", version :: String="v1")
     url = create_category_type_upload_url(base_url, project_id)
-    headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" => "application/json",
-               "accept" => "application/json"]
+    @info "----------------Uploading Category Types -------------------"
     files = create_file_paths(file_name, file_path)
     req_responses = []
     for file in files
         file_io = open(file, "r")
-        upload_dict = Dict(["file" => read(file_io, String)])
+        file_name = create_uploadable_file_name(file)
+        multipart = HTTP.Multipart(file, file_io, "application/json")
+        #upload_dict = Dict(["file" => multipart])
+        upload_text = read(file_io, String)
+        @info "upload_text:"
+        @info upload_text
+        upload_dict = HTTP.Form(Dict(["file" => multipart]))
+        @info "upload_dict:"
+        @info upload_dict
+        #headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "multipart/form-data; boundary=----WebkitFormBoundaryxuRflWRLKyUvZXIa", "Content-Length" => length(upload_text)]
+        headers = ["X-CSRFToken"=>_csrf_token, "Content-Type" =>  "application/json", "Content-Length" => length(String(take!(multipart.data)))]
+        @info "headers:"
+        @info headers
         r = make_category_type_upload_request(url, headers, upload_dict)
+        @info "request results:"
+        @info r
         push!(req_responses, JSON3.read(r.body))
     end
     return req_responses

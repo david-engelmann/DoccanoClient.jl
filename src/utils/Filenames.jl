@@ -10,7 +10,7 @@ function create_file_paths(file_names :: Union{String, Vector{String}}, file_pat
             for (path, name) in zip(file_path, file_names)
                 push!(file_paths, string(URI(path * raw"/" *  name)))
             end
-        
+
         elseif number_of_paths == 1
             path = file_path[1]
             for name in file_names
@@ -31,7 +31,7 @@ function create_file_paths(file_names :: Union{String, Vector{String}}, file_pat
         for name in file_names
             push!(file_paths, string(URI(path * raw"/" *  name)))
         end
-    
+
     elseif isa(file_names, String) && isa(file_path, Vector)
         file_names = [file_names for _ in 1:length(file_path)]
         println("zip file and path")
@@ -42,7 +42,7 @@ function create_file_paths(file_names :: Union{String, Vector{String}}, file_pat
     else
         path = file_path
         name = file_names
-        push!(file_paths, string(URI(path * raw"/" *  name)))   
+        push!(file_paths, string(URI(path * raw"/" *  name)))
 
     end
     return file_paths
@@ -53,4 +53,4 @@ function create_uploadable_file_name(file_name)
     return String(last(split(file_uri.path, "/")))
 end
 
-println(create_uploadable_file_name("src/sample_classification_inputs.jsonl"))
+#println(create_uploadable_file_name("src/sample_classification_inputs.jsonl"))
